@@ -1,0 +1,24 @@
+@use 'typography' as *;
+@use 'functions' as *;
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  padding: grid(4) 6%;
+}
+
+.name {
+  @extend %slab-bold;
+  @include title-small;
+  color: var(--color-brand);
+}
+
+.links {
+  display: flex;
+  gap: grid(5);
+}
+
+.link {
+  @include body-2xs;
+  color: var(--color-neutral-40);
+}

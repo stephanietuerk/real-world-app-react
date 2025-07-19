@@ -1,0 +1,16 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.root {
+  background: var(--color-neutral-variant-95);
+  display: flex;
+  width: 100%;
+  padding: grid(4) 6%;
+  @include body-2xs;
+}
+
+.name {
+  color: var(--color-brand);
+  padding-right: grid(1);
+  @extend %slab-semibold;
+}
