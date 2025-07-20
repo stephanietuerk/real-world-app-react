@@ -1,12 +1,15 @@
+import { Outlet } from 'react-router-dom';
+import styles from './App.module.scss';
 import Footer from './footer/Footer.tsx';
 import Header from './header/Header.tsx';
-import Main from './main/Main.tsx';
 
 export default function App() {
   return (
     <>
       <Header />
-      <Main />
+      <main className={styles.main}>
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

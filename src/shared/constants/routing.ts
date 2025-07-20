@@ -1,17 +1,31 @@
-export const ROUTES: { id: string; path: string; display: string }[] = [
+export const ROUTE = {
+  home: '/',
+  login: '/login',
+  register: '/register',
+  settings: '/settings',
+  profile: (username: string) => `/profile/${username}`,
+  article: (slug: string) => `/article/${slug}`,
+  editor: (slug?: string) => (slug ? `/editor/${slug}` : '/editor'),
+} as const;
+
+export const ROUTES_NO_AUTH: {
+  path: string;
+  display: string;
+  type: 'page' | 'dialog';
+}[] = [
   {
-    id: 'home',
-    path: '/',
+    path: ROUTE.home,
     display: 'Home',
+    type: 'page',
   },
   {
-    id: 'login',
-    path: '/login',
+    path: ROUTE.login,
     display: 'Sign In',
+    type: 'dialog',
   },
   {
-    id: 'register',
-    path: '/register',
+    path: ROUTE.register,
     display: 'Sign Up',
+    type: 'dialog',
   },
 ];

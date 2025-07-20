@@ -140,7 +140,6 @@
   @extend %sans-regular;
   font-size: 1.17rem;
   letter-spacing: 0.015rem;
-  // line-height: 1.25rem;
   line-height: 1.5;
 }
 
@@ -148,7 +147,6 @@
   @extend %sans-regular;
   font-size: 1rem;
   letter-spacing: 0.025rem;
-  // line-height: 1rem;
   line-height: 1.5;
 }
 
@@ -168,7 +166,6 @@
 
 // Labels
 @mixin label-large {
-  // @extend %slab-standard-medium;
   @extend %sans-medium;
   font-size: 1.17rem;
   letter-spacing: 0.015rem;
@@ -177,7 +174,6 @@
 
 @mixin label-large-prominent {
   @include label-large;
-  // @extend %slab-standard-bold;
   @extend %sans-bold;
 }
 
@@ -188,12 +184,10 @@
 
 @mixin label-large-caps-prominent {
   @include label-large-caps;
-  // @extend %slab-standard-bold;
   @extend %sans-bold;
 }
 
 @mixin label-medium {
-  // @extend %slab-standard-medium;
   @extend %sans-medium;
   font-size: 1rem;
   letter-spacing: 0.03rem;
@@ -202,7 +196,6 @@
 
 @mixin label-medium-prominent {
   @include label-medium;
-  // @extend %slab-standard-bold;
   @extend %sans-bold;
 }
 
@@ -213,12 +206,10 @@
 
 @mixin label-medium-caps-prominent {
   @include label-medium-caps;
-  // @extend %slab-standard-bold;
   @extend %sans-bold;
 }
 
 @mixin label-small {
-  // @extend %slab-standard-medium;
   @extend %sans-medium;
   font-size: 0.92rem;
   letter-spacing: 0.03rem;
@@ -227,7 +218,6 @@
 
 @mixin label-small-prominent {
   @include label-small;
-  // @extend %slab-standard-bold;
   @extend %sans-bold;
 }
 
@@ -238,12 +228,10 @@
 
 @mixin label-small-caps-prominent {
   @include label-small-caps;
-  // @extend %slab-standard-bold;
   @extend %sans-bold;
 }
 
 @mixin label-xs {
-  // @extend %slab-standard-medium;
   @extend %sans-medium;
   font-size: 0.83rem;
   letter-spacing: 0.015rem;
@@ -252,7 +240,6 @@
 
 @mixin label-xs-prominent {
   @include label-xs;
-  // @extend %slab-standard-bold;
   @extend %sans-bold;
 }
 
@@ -268,7 +255,6 @@
 }
 
 @mixin label-2xs {
-  // @extend %slab-standard-medium;
   @extend %sans-medium;
   font-size: 0.75rem;
   letter-spacing: 0.015rem;

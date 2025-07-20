@@ -1,0 +1,75 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.container {
+  border: 1px solid var(--color-neutral-90);
+  border-radius: grid(1);
+  padding: grid(2) grid(4);
+  margin-bottom: grid(2);
+  background: var(--color-neutral-100);
+
+  &:hover {
+    border: 1px solid var(--color-blue-60);
+  }
+}
+
+.topRow {
+  display: flex;
+  margin-bottom: grid(4);
+}
+
+.authorInfo {
+  display: flex;
+}
+
+.authorDate {
+  margin-left: grid(2);
+}
+
+.author {
+  @extend %sans-medium;
+  @include label-small;
+  color: var(--color-blue-60);
+}
+
+.date {
+  @include body-2xs;
+  color: var(--color-neutral-40);
+}
+
+.favorite {
+}
+
+.title {
+  @include title-medium;
+  margin-bottom: grid(1);
+}
+
+.description {
+  color: var(--color-neutral-40);
+}
+
+.bottomRow {
+  margin-top: grid(4);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.readMore {
+  @include body-2xs;
+  color: var(--color-neutral-40);
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include label-2xs;
+  border-radius: 9999px;
+  background: var(--color-neutral-95);
+  padding: grid(1) grid(2);
+  margin: 0 grid(1) 0 0;
+  color: var(--color-neutral-40);
+}

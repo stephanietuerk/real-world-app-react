@@ -1,16 +1,28 @@
 @use 'functions' as *;
 @use 'typography' as *;
 
-.root {
-  background: var(--color-neutral-variant-95);
+.container {
+  background: var(--color-blue-70);
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding: grid(4) 6%;
+  padding: grid(4) var(--page-margin-side);
   @include body-2xs;
 }
 
+.widthContainer {
+  display: flex;
+  width: var(--page-max-width);
+  vertical-align: baseline;
+}
+
 .name {
-  color: var(--color-brand);
-  padding-right: grid(1);
   @extend %slab-semibold;
+  color: var(--color-blue-100);
+  padding-right: grid(1);
+}
+
+.link {
+  color: var(--color-blue-100);
 }

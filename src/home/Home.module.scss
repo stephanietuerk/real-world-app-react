@@ -1,0 +1,16 @@
+@use 'functions' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--page-margin-side);
+}
+
+.belowBanner {
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--page-max-width);
+  gap: grid(8);
+  padding-top: grid(8);
+}
