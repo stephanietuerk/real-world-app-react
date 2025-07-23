@@ -29,3 +29,9 @@ export const ROUTES_NO_AUTH: {
     type: 'dialog',
   },
 ];
+
+export const ROUTES_AUTH = [
+  { path: ROUTE.settings, display: 'Settings', type: 'page' },
+  { path: ROUTE.editor(), display: 'New Post', type: 'page' },
+  { path: ROUTE.profile(':username'), display: 'Profile', type: 'page' },
+];

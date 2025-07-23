@@ -7,6 +7,7 @@
   padding: grid(2) grid(4);
   margin-bottom: grid(2);
   background: var(--color-neutral-100);
+  box-shadow: var(--shadow-sm-bottom-ultra-soft);
 
   &:hover {
     border: 1px solid var(--color-blue-60);
@@ -33,7 +34,7 @@
 }
 
 .date {
-  @include body-2xs;
+  @include label-2xs;
   color: var(--color-neutral-40);
 }
 
