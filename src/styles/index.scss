@@ -1,0 +1,87 @@
+@use './theme.scss';
+@use './reset.scss';
+@use './vars.scss';
+@use 'typography' as *;
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RobotoSlab';
+  src: url('/fonts/RobotoSlab-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+:root {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-slab: 'RobotoSlab', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  @include body-xs;
+  color: var(--color-blue-10);
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+}
+
+h1 {
+  @include display-large;
+}
+
+h2 {
+  @include display-medium;
+}
+
+h3 {
+  @include display-small;
+}
+
+h4 {
+  @include headline-medium;
+}
+
+h5 {
+  @include title-large;
+}
+
+h6 {
+  @include title-medium;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-link-primary);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+button {
+  background: none;
+}
+
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}

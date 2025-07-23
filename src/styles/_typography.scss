@@ -1,0 +1,278 @@
+%slab {
+  font-family: 'RobotoSlab', system-ui, serif;
+}
+
+%slab-light {
+  @extend %slab;
+  font-variation-settings: 'wght' 300;
+}
+
+%slab-regular {
+  @extend %slab;
+  font-variation-settings: 'wght' 400;
+}
+
+%slab-medium {
+  @extend %slab;
+  font-variation-settings: 'wght' 500;
+}
+
+%slab-semibold {
+  @extend %slab;
+  font-variation-settings: 'wght' 600;
+}
+
+%slab-bold {
+  @extend %slab;
+  font-variation-settings: 'wght' 700;
+}
+
+%slab-extrabold {
+  @extend %slab;
+  font-variation-settings: 'wght' 800;
+}
+
+%sans {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+%sans-light {
+  @extend %sans;
+  font-variation-settings: 'wght' 300;
+}
+
+%sans-regular {
+  @extend %sans;
+  font-variation-settings: 'wght' 400;
+}
+
+%sans-medium {
+  @extend %sans;
+  font-variation-settings: 'wght' 500;
+}
+
+%sans-semibold {
+  @extend %sans;
+  font-variation-settings: 'wght' 600;
+}
+
+%sans-bold {
+  @extend %sans;
+  font-variation-settings: 'wght' 700;
+}
+
+%sans-extrabold {
+  @extend %sans;
+  font-variation-settings: 'wght' 800;
+}
+
+@mixin display-large {
+  @extend %slab-regular;
+  font-size: 4.75rem;
+  letter-spacing: -0.015rem;
+  line-height: 4rem;
+}
+
+@mixin display-medium {
+  @extend %slab-regular;
+  font-size: 3.75rem;
+  letter-spacing: 0;
+  line-height: 3.25rem;
+}
+
+@mixin display-small {
+  @extend %slab-regular;
+  font-size: 3rem;
+  letter-spacing: 0;
+  line-height: 2.75rem;
+}
+
+@mixin headline-large {
+  @extend %slab-medium;
+  font-size: 2.67rem;
+  letter-spacing: 0;
+  line-height: 2.5rem;
+}
+
+@mixin headline-medium {
+  @extend %slab-medium;
+  font-size: 2.33rem;
+  letter-spacing: 0;
+  line-height: 2.25rem;
+}
+
+@mixin headline-small {
+  @extend %slab-medium;
+  font-size: 2rem;
+  letter-spacing: 0;
+  line-height: 2rem;
+}
+
+@mixin title-large {
+  @extend %slab-medium;
+  font-size: 1.83rem;
+  letter-spacing: 0;
+  line-height: 1.75rem;
+}
+
+@mixin title-medium {
+  @extend %slab-medium;
+  font-size: 1.33rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.5rem;
+}
+
+@mixin title-small {
+  @extend %slab-medium;
+  font-size: 1.17rem;
+  letter-spacing: 0.007rem;
+  line-height: 1.25rem;
+}
+
+@mixin body-large {
+  @extend %sans-regular;
+  font-size: 1.33rem;
+  letter-spacing: 0.03rem;
+  line-height: 1.5;
+}
+
+@mixin body-medium {
+  @extend %sans-regular;
+  font-size: 1.17rem;
+  letter-spacing: 0.015rem;
+  line-height: 1.5;
+}
+
+@mixin body-small {
+  @extend %sans-regular;
+  font-size: 1rem;
+  letter-spacing: 0.025rem;
+  line-height: 1.5;
+}
+
+@mixin body-xs {
+  @extend %sans-regular;
+  font-size: 0.92rem;
+  letter-spacing: 0;
+  line-height: 1rem;
+}
+
+@mixin body-2xs {
+  @extend %sans-regular;
+  font-size: 0.83rem;
+  letter-spacing: 0;
+  line-height: 1rem;
+}
+
+// Labels
+@mixin label-large {
+  @extend %sans-medium;
+  font-size: 1.17rem;
+  letter-spacing: 0.015rem;
+  line-height: 1.25rem;
+}
+
+@mixin label-large-prominent {
+  @include label-large;
+  @extend %sans-bold;
+}
+
+@mixin label-large-caps {
+  @include label-large;
+  text-transform: uppercase;
+}
+
+@mixin label-large-caps-prominent {
+  @include label-large-caps;
+  @extend %sans-bold;
+}
+
+@mixin label-medium {
+  @extend %sans-medium;
+  font-size: 1rem;
+  letter-spacing: 0.03rem;
+  line-height: 1rem;
+}
+
+@mixin label-medium-prominent {
+  @include label-medium;
+  @extend %sans-bold;
+}
+
+@mixin label-medium-caps {
+  @include label-medium;
+  text-transform: uppercase;
+}
+
+@mixin label-medium-caps-prominent {
+  @include label-medium-caps;
+  @extend %sans-bold;
+}
+
+@mixin label-small {
+  @extend %sans-medium;
+  font-size: 0.92rem;
+  letter-spacing: 0.03rem;
+  line-height: 1rem;
+}
+
+@mixin label-small-prominent {
+  @include label-small;
+  @extend %sans-bold;
+}
+
+@mixin label-small-caps {
+  @include label-small;
+  text-transform: uppercase;
+}
+
+@mixin label-small-caps-prominent {
+  @include label-small-caps;
+  @extend %sans-bold;
+}
+
+@mixin label-xs {
+  @extend %sans-medium;
+  font-size: 0.83rem;
+  letter-spacing: 0.015rem;
+  line-height: 0.875rem;
+}
+
+@mixin label-xs-prominent {
+  @include label-xs;
+  @extend %sans-bold;
+}
+
+@mixin label-xs-caps {
+  @include label-xs;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+@mixin label-xs-caps-prominent {
+  @include label-xs-caps;
+  @extend %sans-bold;
+}
+
+@mixin label-2xs {
+  @extend %sans-medium;
+  font-size: 0.75rem;
+  letter-spacing: 0.015rem;
+  line-height: 0.75rem;
+}
+
+@mixin label-2xs-prominent {
+  @include label-2xs;
+  @extend %sans-bold;
+}
+
+@mixin label-2xs-caps {
+  @include label-2xs;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+@mixin label-2xs-caps-prominent {
+  @include label-2xs-caps;
+  @extend %sans-bold;
+}
