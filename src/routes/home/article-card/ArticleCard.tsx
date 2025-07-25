@@ -1,6 +1,6 @@
-import type { ArticleMetadata } from '../../shared/api/articles';
-import Avatar from '../../shared/avatar/Avatar';
-import { MONTH } from '../../shared/constants/time';
+import type { ArticleMetadata } from '../../../shared/api/articles';
+import Avatar from '../../../shared/avatar/Avatar';
+import { MONTH } from '../../../shared/constants/time';
 import styles from './ArticleCard.module.scss';
 
 export default function ArticleCard({ article }: { article: ArticleMetadata }) {

@@ -31,3 +31,8 @@
   color: var(--color-neutral-40);
   display: block;
 }
+
+.linkActive {
+  @extend .link;
+  color: var(--color-brand);
+}

@@ -1,4 +1,4 @@
-import { APP_NAME } from '../../shared/constants/app';
+import { APP_NAME } from '../../../shared/constants/app';
 import styles from './Banner.module.scss';
 
 export default function Banner() {
