@@ -15,7 +15,7 @@ My approach is to try to keep libraries rather low-level, to focus on learning f
 
 ## UX/Design Modifications
 
-The Real World app has a lot of "back of frontend" features to implement, but the user experience [is a but clunky](https://demo.realworld.build/#/). I'm making some UX and design changes to make it more usable and create better information hierarchy.
+The Real World app has a lot of "back of frontend" features to implement, but the user experience [is a bit clunky](https://demo.realworld.build/#/). I'm making some UX and design changes to make it more usable and create better information hierarchy.
 
 ### UX
 
