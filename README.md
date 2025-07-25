@@ -27,4 +27,4 @@ The Real World app has a lot of "back of frontend" features to implement, but th
 
 - Green color isn't accessible, let's change it to something more accessible.
 - Implement multi-toned color palette to improve visual hierarchy.
-- Style articles as cards with better styling and a fallback user icon since the user avatar images from the API have a CORS issue.
+- Style articles as cards and provide a fallback user icon since the user avatar images from the API have a CORS issue.
