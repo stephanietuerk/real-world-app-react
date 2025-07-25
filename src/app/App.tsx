@@ -1,9 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Footer from '../footer/Footer.tsx';
-import Header from '../header/Header.tsx';
-import Home from '../home/Home.tsx';
+import Home from '../routes/home/Home.tsx';
 import { ROUTE, ROUTES_NO_AUTH } from '../shared/constants/routing.ts';
 import styles from './App.module.scss';
+import Footer from './footer/Footer.tsx';
+import Header from './header/Header.tsx';
 
 export default function App() {
   const location = useLocation();
@@ -16,10 +16,6 @@ export default function App() {
     switch (pathname) {
       case ROUTE.home:
         return <Home />;
-      case ROUTE.settings:
-        return <Settings />;
-      case ROUTE.profile(':username'):
-        return <Profile />;
       default:
         return <Home />;
     }
@@ -29,13 +25,7 @@ export default function App() {
     <>
       <Header />
       <main className={styles.main}>
-        {
-          isModal ? (
-            getPageComponent(backgroundLocation.pathname) // Show actual background page
-          ) : (
-            <Outlet />
-          ) // Show current route normally
-        }
+        <Outlet />
       </main>
       <Footer />
     </>

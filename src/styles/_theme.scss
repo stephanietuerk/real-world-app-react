@@ -1,8 +1,10 @@
 :root {
   --color-brand: #5e6ad2;
+  --color-brand-rgb: 94, 106, 210;
   --color-link-primary: #828fff;
   --color-link-hover: #828fff;
   --color-text: var(--color-blue-10);
+  --color-modal-background: 10, 31, 74;
 
   --color-blue-0: #000c1f;
   --color-blue-10: #041430;
@@ -55,4 +57,17 @@
   --color-neutral-98: #f9fafb;
   --color-neutral-99: #fcfdfd;
   --color-neutral-100: #ffffff;
+
+  --black-a1: #0000000d;
+  --black-a2: #0000001a;
+  --black-a3: #00000026;
+  --black-a4: #0003;
+  --black-a5: #0000004d;
+  --black-a6: #0006;
+  --black-a7: #00000080;
+  --black-a8: #0009;
+  --black-a9: #000000b3;
+  --black-a10: #000c;
+  --black-a11: #000000e6;
+  --black-a12: #000000f2;
 }

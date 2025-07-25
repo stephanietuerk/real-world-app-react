@@ -1,5 +1,5 @@
 import { Tabs } from 'radix-ui';
-import type { ArticleMetadata } from '../../shared/api/articles';
+import type { ArticleMetadata } from '../../../shared/api/articles';
 import ArticleCard from '../article-card/ArticleCard';
 import styles from './Feeds.module.scss';
 
@@ -8,7 +8,6 @@ export default function Feeds({
 }: {
   articles: ArticleMetadata[] | null;
 }) {
-  console.log('arct', articles);
   return (
     <Tabs.Root className={styles.TabsRoot} defaultValue="tab2">
       <Tabs.List className={styles.TabsList} aria-label="Select a feed">
