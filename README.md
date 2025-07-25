@@ -14,7 +14,7 @@ Instead of cloning the Real World starter repo, I built this from scratch, scaff
 
 ## UX/Design Deviations
 
-## UX
+### UX
 
 - Make it clear what "popular tags" actually do -- clarify that they are interactive with visual cues and a better label ("Show articles about"). Tags are also now multi-select.
 - "Show articles about" filters results in place -- no need for a new "feed".
