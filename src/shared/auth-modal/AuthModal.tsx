@@ -1,50 +1,16 @@
 import { Form } from 'radix-ui';
 import { useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
-import { login } from '../../api/login';
 import CloseIcon from '../../shared/close-x-button/CloseXButton';
 import { ROUTE } from '../../shared/constants/routing';
-import styles from './LoginModal.module.scss';
+import styles from './AuthModal.module.scss';
 
-export default function LoginModal() {
+export default function AuthModal({ handleFormInput, onSubmit, closeModal }) {
   const [error, setError] = useState<string | null>(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
-
-  function handleInput() {
-    if (formRef.current) {
-      setIsFormValid(formRef.current.checkValidity());
-      const email = formRef.current.elements.namedItem(
-        'email',
-      ) as HTMLInputElement | null;
-      if (email && email.value.trim() === '') {
-        setError(null);
-      }
-    }
-  }
-
-  async function onSubmit(
-    event: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    event.preventDefault();
-    setError(null);
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    try {
-      const user = await login(email, password);
-      localStorage.setItem('token', user.token);
-      closeModal();
-    } catch (err) {
-      setError('Login failed. Please check your credentials.');
-    }
-  }
-
-  function closeModal(): void {
-    navigate(-1);
-  }
 
   return (
     <div className={styles.root}>
@@ -77,7 +43,7 @@ export default function LoginModal() {
           onSubmit={onSubmit}
           method="post"
           ref={formRef}
-          onInput={handleInput}
+          onInput={handleFormInput}
         >
           <Form.Field className={styles.formField} name="email">
             <div

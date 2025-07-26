@@ -1,5 +1,5 @@
 import { Tabs } from 'radix-ui';
-import type { ArticleMetadata } from '../../../shared/api/articles';
+import type { ArticleMetadata } from '../../../api/articles';
 import ArticleCard from '../article-card/ArticleCard';
 import styles from './Feeds.module.scss';
 

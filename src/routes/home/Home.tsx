@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import {
-  useGlobalArticles,
-  type ArticleMetadata,
-} from '../../shared/api/articles';
+import { useGlobalArticles, type ArticleMetadata } from '../../api/articles';
 import Banner from './banner/Banner';
 import Feeds from './feeds/Feeds';
 import styles from './Home.module.scss';

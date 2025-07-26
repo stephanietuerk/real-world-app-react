@@ -1,4 +1,4 @@
-import type { ArticleMetadata } from '../../../shared/api/articles';
+import type { ArticleMetadata } from '../../../api/articles';
 import Avatar from '../../../shared/avatar/Avatar';
 import { MONTH } from '../../../shared/constants/time';
 import styles from './ArticleCard.module.scss';
