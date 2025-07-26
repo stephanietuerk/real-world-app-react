@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router';
+import RegisterModal from '../routes//auth-modal/RegisterModal';
+import LoginModal from '../routes/auth-modal/LoginModal';
 import Home from '../routes/home/Home';
-import LoginModal from '../routes/login-modal/LoginModal';
-import RegisterModal from '../routes/register-modal/RegisterModal';
 import { ROUTE } from '../shared/constants/routing';
 import App from './App';
 
