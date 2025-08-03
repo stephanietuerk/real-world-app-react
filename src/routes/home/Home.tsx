@@ -41,7 +41,11 @@ export default function Home() {
     feedType: 'global',
     tags: [NONE_TAG],
   });
-  const { articles, isLoading } = useArticles(feedSelections.feedType);
+  const { articles, isLoading } = useArticles(
+    feedSelections.feedType,
+    undefined,
+    undefined,
+  );
 
   const filteredArticles =
     articles.length === 0
@@ -60,8 +64,10 @@ export default function Home() {
   return (
     <MainLayout>
       <Banner>
-        <p className={styles.name}>{APP_NAME}</p>
-        <p className={styles.description}>A place to share your knowledge</p>
+        <div className={styles.banner}>
+          <p className={styles.name}>{APP_NAME}</p>
+          <p className={styles.description}>A place to share your knowledge</p>
+        </div>
       </Banner>
       <ArticlesLayout>
         <FeedControls<HomeFeed>

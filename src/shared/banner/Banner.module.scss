@@ -7,7 +7,8 @@
   align-items: center;
   padding: 0 var(--page-margin-side);
   background-color: var(--color-banner-background, white);
-  min-height: 200px;
+  min-height: 180px;
+  width: 100%;
 }
 
 .widthContainer {
@@ -15,4 +16,5 @@
   flex-direction: column;
   max-width: var(--page-max-width);
   width: 100%;
+  flex-grow: 1;
 }

@@ -93,10 +93,8 @@ export default function Profile() {
           className={styles.banner}
           style={
             {
-              '--color-breadcrumb-text':
-                'rgba(var(--color-accent-faint-rgb), 0.6)',
-              '--color-link-primary':
-                'rgba(var(--color-accent-faint-rgb), 0.6)',
+              '--color-breadcrumb-text': 'rgba(var(--color-surface-rgb), 0.7)',
+              '--color-link-primary': 'rgba(var(--color-surface-rgb), 0.7)',
               '--color-link-hover': 'white',
             } as React.CSSProperties
           }
