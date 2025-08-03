@@ -1,16 +1,30 @@
 @use 'functions' as *;
+@use 'typography' as *;
 
-.container {
+.banner {
+  padding: grid(4) 0;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 var(--page-margin-side);
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
-.belowBanner {
-  display: flex;
-  justify-content: space-between;
-  max-width: var(--page-max-width);
-  gap: grid(8);
-  padding-top: grid(8);
+.name {
+  @include headline-large;
+  color: var(--color-primary);
+  margin-bottom: grid(1);
+  margin-top: grid(12);
+}
+
+.description {
+  @include body-medium;
+  color: var(--color-blue-30);
+}
+
+.feedTypeTitle {
+  @include label-xs-caps-prominent;
+  margin-bottom: grid(2);
 }

@@ -1,10 +1,18 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useAuth } from '../../api/AuthProvider';
 import { APP_NAME } from '../../shared/constants/app';
-import { ROUTE, ROUTES_NO_AUTH } from '../../shared/constants/routing';
+import {
+  ROUTE,
+  ROUTES_AUTH,
+  ROUTES_NO_AUTH,
+} from '../../shared/constants/routing';
 import styles from './Header.module.scss';
 
 export default function Header() {
   const location = useLocation();
+  const { hasToken } = useAuth();
+
+  const routes = hasToken ? ROUTES_AUTH : ROUTES_NO_AUTH;
 
   return (
     <nav className={styles.container}>
@@ -13,7 +21,7 @@ export default function Header() {
           <h1 className={styles.name}>{APP_NAME}</h1>
         </Link>
         <div className={styles.links}>
-          {ROUTES_NO_AUTH.map((route) => {
+          {routes.map((route) => {
             if (route.type === 'page') {
               return (
                 <NavLink

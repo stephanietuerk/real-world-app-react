@@ -1,14 +1,18 @@
 @use 'functions' as *;
 @use 'typography' as *;
 
+$color-accent: var(--color-blue-100);
+$color-base: rgba(255, 255, 255, 0.7);
+
 .container {
-  background: var(--color-blue-70);
+  background: var(--color-primary);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding: grid(4) var(--page-margin-side);
   @include body-2xs;
+  color: $color-base;
 }
 
 .widthContainer {
@@ -19,10 +23,15 @@
 
 .name {
   @extend %slab-semibold;
-  color: var(--color-blue-100);
+  color: $color-accent;
   padding-right: grid(1);
 }
 
 .link {
-  color: var(--color-blue-100);
+  color: $color-accent;
+
+  &:hover {
+    color: $color-accent;
+    text-decoration: underline;
+  }
 }

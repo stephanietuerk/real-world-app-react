@@ -1,0 +1,135 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.articleCard {
+  border: 1px solid transparent;
+  padding: grid(6) grid(4) grid(6) grid(4);
+  border-top: 1px solid var(--color-neutral-90);
+  background: var(--color-surface);
+  transition: all 0.2s ease-in-out;
+
+  &:last-of-type {
+    border-bottom: 1px solid var(--color-neutral-90);
+  }
+}
+
+.articleCard:hover {
+  cursor: pointer;
+  background: var(--color-accent-whisper);
+  border-top: 1px solid var(--color-primary);
+
+  &:last-of-type {
+    border-bottom: 1px solid var(--color-primary);
+  }
+
+  & + .articleCard {
+    border-top: 1px solid var(--color-primary);
+  }
+}
+
+.articleCardFavoriteHovered:hover {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-neutral-90);
+
+  &:last-of-type {
+    border-bottom: 1px solid var(--color-neutral-90);
+  }
+
+  & + .articleCard {
+    border-top: 1px solid var(--color-neutral-90);
+  }
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: grid(8);
+}
+
+.authorInfo {
+  display: flex;
+}
+
+.authorDate {
+  margin-left: grid(2);
+}
+
+.author {
+  @extend %sans-medium;
+  @include label-small;
+  display: block;
+  color: var(--color-primary);
+  margin-bottom: grid(1);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.date {
+  @include label-2xs;
+  color: var(--color-neutral-60);
+}
+
+.favorite {
+  border: 1px solid rgba(var(--color-primary-rgb), 0.5);
+  padding: grid(1);
+  border-radius: grid(1);
+  display: flex;
+  align-items: center;
+  background: var(--color-surface);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-accent-faint);
+  }
+}
+
+.favoritePath {
+  fill: rgba(var(--color-primary-rgb), 0.7);
+}
+
+.favoritePathHovered {
+  fill: var(--color-primary);
+}
+
+.favoriteCount {
+  margin-left: grid(1);
+}
+
+.title {
+  @include title-large;
+  color: var(--color-blue-20);
+  margin-bottom: grid(2);
+}
+
+.description {
+  color: var(--color-neutral-10);
+}
+
+.bottomRow {
+  margin-top: grid(6);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.viewArticle {
+  @include label-xs-caps-prominent;
+  color: var(--color-primary);
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include label-2xs;
+  border-radius: grid(2);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.7);
+  color: rgba(var(--color-primary-rgb), 0.9);
+  padding: grid(1) grid(2);
+  margin: 0 grid(1) 0 0;
+  background: var(--color-neutral-100);
+}

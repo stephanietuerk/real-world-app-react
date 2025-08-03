@@ -5,9 +5,7 @@ export default function Footer() {
   return (
     <div className={styles.container}>
       <div className={styles.widthContainer}>
-        <a>
-          <p className={styles.name}>{APP_NAME}</p>
-        </a>
+        <p className={styles.name}>{APP_NAME}</p>
         <p>
           ©2025. An interactive learning project from{' '}
           <a
@@ -18,7 +16,7 @@ export default function Footer() {
           >
             RealWorld OSS Project
           </a>
-          . Code licensed under MIT.
+          .
         </p>
       </div>
     </div>
