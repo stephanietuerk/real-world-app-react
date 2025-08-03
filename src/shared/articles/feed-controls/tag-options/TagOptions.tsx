@@ -1,21 +1,22 @@
 import clsx from 'clsx';
-import styles from './PopularTags.module.scss';
+import styles from './TagOptions.module.scss';
 
-export default function PopularTags({
+export const NONE_TAG = 'everything';
+
+export default function TagOptions({
   tags,
   selected,
   toggleTag,
 }: {
-  tags: string[] | undefined;
+  tags: string[];
   selected: string[];
   toggleTag: (tag: string) => void;
 }) {
-  const sortedTags = tags?.slice().sort();
+  const sortedTags = [NONE_TAG, ...tags.slice().sort()];
 
   return (
-    <div className={styles.container}>
-      <p className={styles.label}>Show articles about</p>
-      {sortedTags?.map((tag) => (
+    <>
+      {sortedTags.map((tag) => (
         <button
           className={clsx(styles.tag, selected.includes(tag) && styles.active)}
           onClick={() => toggleTag(tag)}
@@ -24,6 +25,6 @@ export default function PopularTags({
           {tag}
         </button>
       ))}
-    </div>
+    </>
   );
 }

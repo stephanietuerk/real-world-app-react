@@ -1,11 +1,12 @@
-import type { ArticleMetadata } from '../../../api/articles';
-import Avatar from '../../../shared/avatar/Avatar';
-import { MONTH } from '../../../shared/constants/time';
+import { Link } from 'react-router-dom';
+import type { ArticleMetadata } from '../../../api/useArticles';
+import Avatar from '../../avatar/Avatar';
+import { MONTH } from '../../constants/time';
 import styles from './ArticleCard.module.scss';
 
 export default function ArticleCard({ article }: { article: ArticleMetadata }) {
   return (
-    <div className={styles.container}>
+    <div className={styles.articleCard}>
       <div className={styles.topRow}>
         <div className={styles.authorInfo}>
           <Avatar
@@ -13,7 +14,9 @@ export default function ArticleCard({ article }: { article: ArticleMetadata }) {
             alt={`Avatar of ${article.author.username}`}
           />
           <div className={styles.authorDate}>
-            <p className={styles.author}>{article.author.username}</p>
+            <Link to={`/profile/${article.author.username}`}>
+              <span className={styles.author}>{article.author.username}</span>
+            </Link>
             <p className={styles.date}>{formatDate(article.createdAt)}</p>
           </div>
         </div>
@@ -22,7 +25,7 @@ export default function ArticleCard({ article }: { article: ArticleMetadata }) {
       <p className={styles.title}>{article.title}</p>
       <p className={styles.description}>{article.description}</p>
       <div className={styles.bottomRow}>
-        <p className={styles.readMore}>Read more...</p>
+        <button className={styles.viewArticle}>Read article</button>
         <div className={styles.tags}>
           {article.tagList.map((tag) => (
             <p className={styles.tag} key={tag}>
@@ -35,8 +38,7 @@ export default function ArticleCard({ article }: { article: ArticleMetadata }) {
   );
 }
 
-function formatDate(dateString: str): string {
-  const date = new Date(dateString);
+function formatDate(date: Date): string {
   const year = date.getFullYear();
   const month = MONTH[date.getMonth()];
   const day = date.getDate();

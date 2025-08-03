@@ -12,7 +12,7 @@ interface AuthModalProps {
   handleSubmit: (
     formData: FormData,
     closeModal: () => void,
-    setError: React.Dispatch<React.SetStateAction<string | null>>,
+    handleAuthError: (err: unknown) => void,
   ) => Promise<void>;
   handleInput: (
     form: HTMLFormElement,
@@ -49,13 +49,27 @@ export default function AuthModal({
     }
   }
 
+  function handleAuthError(err: unknown): void {
+    if (err instanceof Error && 'code' in err) {
+      if (err.code === 422) {
+        setError('Invalid email or password.');
+      } else if (err.code === 500) {
+        setError('Server error. Please try again later.');
+      } else {
+        setError('Login failed. Please try again.');
+      }
+    } else {
+      setError('Login failed. Please try again.');
+    }
+  }
+
   async function handleSubmitLocal(
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
     setError(null);
     const formData = new FormData(event.currentTarget);
-    handleSubmit(formData, closeModal, setError);
+    handleSubmit(formData, closeModal, handleAuthError);
   }
 
   return (

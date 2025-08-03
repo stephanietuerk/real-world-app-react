@@ -1,0 +1,16 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.segment {
+  margin-right: grid(2);
+  color: var(--color-breadcrumb-text);
+  cursor: pointer;
+}
+
+.connector {
+  margin-right: grid(2);
+}
+
+.route {
+  text-decoration: underline;
+}

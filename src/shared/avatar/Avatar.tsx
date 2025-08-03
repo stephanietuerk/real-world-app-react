@@ -1,6 +1,20 @@
 import { useState } from 'react';
 
-export default function Avatar({ src, alt }: { src: string; alt: string }) {
+interface AvatarProps {
+  src: string;
+  alt: string;
+  size?: number;
+  round?: boolean;
+  filter?: string;
+}
+
+export default function Avatar({
+  src,
+  alt,
+  size = 32,
+  round = true,
+  filter = 'none',
+}: AvatarProps) {
   const [imgSrc, setImgSrc] = useState(src);
   const fallback = '/images/fallback-avatar.svg';
 
@@ -13,8 +27,12 @@ export default function Avatar({ src, alt }: { src: string; alt: string }) {
           setImgSrc(fallback);
         }
       }}
-      width={32}
-      height={32}
+      width={size}
+      height={size}
+      style={{
+        borderRadius: round ? size : 0,
+        filter: filter,
+      }}
     />
   );
 }

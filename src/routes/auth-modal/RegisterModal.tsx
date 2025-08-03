@@ -1,9 +1,11 @@
-import { register } from '../../api/auth';
+import { register } from '../../api/authenticate';
+import { useAuth } from '../../api/AuthProvider';
 import { ROUTE } from '../../shared/constants/routing';
 import AuthModal from './AuthModal';
 import styles from './ImplementedModal.module.scss';
 
 export default function RegisterModal() {
+  const { setToken } = useAuth();
   function handleInput(
     form: HTMLFormElement,
     setError: React.Dispatch<React.SetStateAction<string | null>>,
@@ -25,17 +27,18 @@ export default function RegisterModal() {
   async function handleSubmit(
     formData: FormData,
     closeModal: () => void,
-    setError: React.Dispatch<React.SetStateAction<string | null>>,
+    handleAuthError: (err: unknown) => void,
   ): Promise<void> {
     const username = formData.get('username') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     try {
-      const user = await register(username, email, password);
-      localStorage.setItem('token', user.token);
+      const response = await register(username, email, password);
+      console.log('user', response);
+      setToken(response.user.token);
       closeModal();
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      handleAuthError(err);
     }
   }
 
