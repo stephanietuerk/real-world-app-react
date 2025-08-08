@@ -7,7 +7,7 @@ import {
   type SetStateAction,
 } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
-import CloseIcon from '../../components/icons/CloseXButton';
+import CloseIcon from '../../shared/icons/CloseXButton';
 import styles from './AuthModal.module.scss';
 
 interface AuthModalProps {

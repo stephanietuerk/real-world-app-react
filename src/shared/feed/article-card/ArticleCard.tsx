@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { ArticleMetadata } from '../../../api/useArticles';
-import Avatar from '../../../components/icons/Avatar';
 import { MONTH } from '../../constants/time';
-import FavoriteIcon from '../../icons/favorite-icon/FavoriteIcon';
+import Avatar from '../../icons/Avatar';
+import FavoriteIcon from '../../icons/FavoriteIcon';
 import styles from './ArticleCard.module.scss';
 
 function formatDate(date: Date): string {
