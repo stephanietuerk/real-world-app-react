@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { useParams } from 'react-router';
 import { useArticles } from '../../api/useArticles';
 import { useProfile } from '../../api/useProfile';
-import ArticlesLayout from '../../shared/articles/articles-layout/ArticlesLayout';
-import type { ProfileFeed } from '../../shared/articles/articles.types';
-import FeedTypeOptions from '../../shared/articles/feed-controls/feed-type-options/FeedTypeOptions';
-import FeedControls, {
-  type FeedSelections,
-} from '../../shared/articles/feed-controls/FeedControls';
-import { NONE_TAG } from '../../shared/articles/feed-controls/tag-options/TagOptions';
-import Feed from '../../shared/articles/feed/Feed';
-import { getFilteredArticles } from '../../shared/articles/filterArticles';
 import Banner from '../../shared/banner/Banner';
 import Breadcrumbs from '../../shared/breadcrumbs/Breadcrumbs';
 import { ROUTE } from '../../shared/constants/routing';
+import ArticlesLayout from '../../shared/feed/articles-layout/ArticlesLayout';
+import Feed from '../../shared/feed/Feed';
+import FeedTypeOptions from '../../shared/feed/feed-controls/feed-type-options/FeedTypeOptions';
+import FeedControls, {
+  type FeedSelections,
+} from '../../shared/feed/feed-controls/FeedControls';
+import { NONE_TAG } from '../../shared/feed/feed-controls/tag-options/TagOptions';
+import type { ProfileFeed } from '../../shared/feed/feed.types';
+import { getFilteredArticles } from '../../shared/feed/filterArticles';
 import MainLayout from '../../shared/main-layout/MainLayout';
 import styles from './Profile.module.scss';
 

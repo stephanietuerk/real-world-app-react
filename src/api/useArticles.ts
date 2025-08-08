@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import type { HomeFeed, ProfileFeed } from '../shared/articles/articles.types';
 import { API_ROOT } from '../shared/constants/api';
+import type { HomeFeed, ProfileFeed } from '../shared/feed/feed.types';
 import { useApiClient } from './useApiClient';
 
 const ARTICLES_ENDPOINT = {
@@ -30,6 +30,13 @@ interface ApiArticles {
   articlesCount: number;
 }
 
+interface UseArticlesState {
+  articles: ArticleMetadata[];
+  isLoading: boolean;
+  currentAccess: HomeFeed;
+  currentProfileFeed: ProfileFeed | undefined;
+}
+
 function getSortedArticles(data: ApiArticles): ArticleMetadata[] {
   return data.articles
     .map((article: ArticleMetadata) => {
@@ -52,12 +59,7 @@ export function useArticles(
   isLoading: boolean;
 } {
   const { authenticatedCall } = useApiClient();
-  const [state, setState] = useState<{
-    articles: ArticleMetadata[];
-    isLoading: boolean;
-    currentAccess: HomeFeed;
-    currentProfileFeed: ProfileFeed | undefined;
-  }>({
+  const [state, setState] = useState<UseArticlesState>({
     articles: [],
     isLoading: true,
     currentAccess: access,

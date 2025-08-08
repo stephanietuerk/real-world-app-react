@@ -1,5 +1,5 @@
-import type { ArticleMetadata } from '../../../api/useArticles';
-import ArticleCard from '../../../shared/articles/article-card/ArticleCard';
+import type { ArticleMetadata } from '../../api/useArticles';
+import ArticleCard from './article-card/ArticleCard';
 import styles from './Feed.module.scss';
 
 interface FeedProps {

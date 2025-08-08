@@ -1,7 +1,7 @@
 import type { ArticleMetadata } from '../../api/useArticles';
-import type { HomeFeed, ProfileFeed } from './articles.types';
 import type { FeedSelections } from './feed-controls/FeedControls';
 import { NONE_TAG } from './feed-controls/tag-options/TagOptions';
+import type { HomeFeed, ProfileFeed } from './feed.types';
 
 export function getFilteredArticles<T extends HomeFeed | ProfileFeed>(
   articles: ArticleMetadata[],

@@ -1,7 +1,7 @@
 import { FocusTrap } from 'focus-trap-react';
 import { useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
-import CloseIcon from '../../shared/icons/close-x-button/CloseXButton';
+import CloseIcon from '../../components/icons/CloseXButton';
 import styles from './AuthModal.module.scss';
 
 interface AuthModalProps {

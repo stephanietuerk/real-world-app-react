@@ -1,7 +1,14 @@
 import { useAuth } from './AuthProvider';
 import { getDataWithAuth } from './getDataWithAuth';
 
-export function useApiClient() {
+type AuthenticatedCall = <T>(
+  endpoint: string,
+  options?: RequestInit,
+) => Promise<T>;
+
+export function useApiClient(): {
+  authenticatedCall: AuthenticatedCall;
+} {
   const { setToken } = useAuth();
 
   const authenticatedCall = async <T>(

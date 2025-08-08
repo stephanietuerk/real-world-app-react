@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { ArticleMetadata } from '../../../api/useArticles';
-import type { HomeFeed, ProfileFeed } from '../articles.types';
+import type { HomeFeed, ProfileFeed } from '../feed.types';
 import styles from './FeedControls.module.scss';
 import TagOptions, { NONE_TAG } from './tag-options/TagOptions';
 
