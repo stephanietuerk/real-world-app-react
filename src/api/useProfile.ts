@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API_ROOT } from '../shared/constants/api';
-import { useApiClient } from './useApiClient';
+import { useApiClient, type ApiCallState } from './useApiClient';
 
 export interface Profile {
   username: string;
@@ -9,15 +9,13 @@ export interface Profile {
   following: boolean;
 }
 
-export function useProfile(user: string | undefined): {
+interface ProfileState extends ApiCallState {
   profile: Profile;
-  isLoading: boolean;
-} {
+}
+
+export function useProfile(user: string | undefined): ProfileState {
   const { authenticatedCall } = useApiClient();
-  const [state, setState] = useState<{
-    profile: Profile;
-    isLoading: boolean;
-  }>({
+  const [state, setState] = useState<ProfileState>({
     profile: {} as Profile,
     isLoading: true,
   });

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { API_ROOT } from '../shared/constants/api';
 import type { HomeFeed, ProfileFeed } from '../shared/feed/feed.types';
-import { useApiClient } from './useApiClient';
+import { useApiClient, type ApiCallState } from './useApiClient';
 
 const ARTICLES_ENDPOINT = {
   global: 'articles',
@@ -30,9 +30,8 @@ interface ApiArticles {
   articlesCount: number;
 }
 
-interface UseArticlesState {
+interface UseArticlesState extends ApiCallState {
   articles: ArticleMetadata[];
-  isLoading: boolean;
   currentAccess: HomeFeed;
   currentProfileFeed: ProfileFeed | undefined;
 }

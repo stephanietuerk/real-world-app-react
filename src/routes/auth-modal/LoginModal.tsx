@@ -1,5 +1,5 @@
 import { login } from '../../api/authenticate';
-import { useAuth } from '../../api/AuthProvider';
+import { useAuth } from '../../context/AuthProvider';
 import { ROUTE } from '../../shared/constants/routing';
 import AuthModal from './AuthModal';
 import styles from './ImplementedModal.module.scss';
@@ -25,8 +25,8 @@ export default function LoginModal() {
     const password = formData.get('password') as string;
 
     try {
-      const user = await login(email, password);
-      setToken(user.token);
+      const res = await login(email, password);
+      setToken(res.user.token);
       closeModal();
     } catch (err) {
       handleAuthError(err);

@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router';
-import { AuthProvider } from '../api/AuthProvider.tsx';
 import App from '../app/App.tsx';
+import { AuthProvider } from '../context/AuthProvider.tsx';
+import { UserProvider } from '../context/UserProvider.tsx';
 import { ROUTE } from '../shared/constants/routing.ts';
 import LoginModal from './auth-modal/LoginModal.tsx';
 import RegisterModal from './auth-modal/RegisterModal.tsx';
@@ -13,19 +14,21 @@ export default function AppRouter() {
 
   return (
     <AuthProvider>
-      <Routes location={state?.backgroundLocation || location}>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path={ROUTE.profile} element={<Profile />} />
-        </Route>
-      </Routes>
-
-      {state?.backgroundLocation && (
-        <Routes>
-          <Route path={ROUTE.login} element={<LoginModal />} />
-          <Route path={ROUTE.register} element={<RegisterModal />} />
+      <UserProvider>
+        <Routes location={state?.backgroundLocation || location}>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path={'/profile/:username'} element={<Profile />} />
+          </Route>
         </Routes>
-      )}
+
+        {state?.backgroundLocation && (
+          <Routes>
+            <Route path={ROUTE.login} element={<LoginModal />} />
+            <Route path={ROUTE.register} element={<RegisterModal />} />
+          </Routes>
+        )}
+      </UserProvider>
     </AuthProvider>
   );
 }

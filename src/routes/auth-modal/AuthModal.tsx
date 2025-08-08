@@ -1,5 +1,11 @@
 import { FocusTrap } from 'focus-trap-react';
-import { useRef, useState } from 'react';
+import {
+  useRef,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+} from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import CloseIcon from '../../components/icons/CloseXButton';
 import styles from './AuthModal.module.scss';
@@ -16,9 +22,9 @@ interface AuthModalProps {
   ) => Promise<void>;
   handleInput: (
     form: HTMLFormElement,
-    setError: React.Dispatch<React.SetStateAction<string | null>>,
+    setError: Dispatch<SetStateAction<string | null>>,
   ) => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function AuthModal({

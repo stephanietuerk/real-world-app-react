@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAuth } from '../../api/AuthProvider';
 import { useArticles } from '../../api/useArticles';
+import { useAuth } from '../../context/AuthProvider';
 import Banner from '../../shared/banner/Banner';
 import { APP_NAME } from '../../shared/constants/app';
 import ArticlesLayout from '../../shared/feed/articles-layout/ArticlesLayout';
@@ -63,7 +63,7 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <Banner>
+      <Banner variant="light">
         <div className={styles.banner}>
           <p className={styles.name}>{APP_NAME}</p>
           <p className={styles.description}>A place to share your knowledge</p>

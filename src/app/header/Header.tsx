@@ -1,5 +1,6 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { useAuth } from '../../api/AuthProvider';
+import { useAuth } from '../../context/AuthProvider';
+import { useUser } from '../../context/UserProvider';
 import { APP_NAME } from '../../shared/constants/app';
 import {
   ROUTE,
@@ -11,6 +12,7 @@ import styles from './Header.module.scss';
 export default function Header() {
   const location = useLocation();
   const { hasToken } = useAuth();
+  const { user } = useUser();
 
   const routes = hasToken ? ROUTES_AUTH : ROUTES_NO_AUTH;
 
@@ -25,11 +27,15 @@ export default function Header() {
             if (route.type === 'page') {
               return (
                 <NavLink
-                  to={route.path}
+                  to={
+                    route.key === 'profile'
+                      ? route.path(user?.username)
+                      : route.path()
+                  }
                   className={({ isActive }) =>
                     isActive ? styles.linkActive : styles.link
                   }
-                  key={route.path}
+                  key={route.key}
                 >
                   {route.display}
                 </NavLink>
@@ -37,12 +43,12 @@ export default function Header() {
             } else {
               return (
                 <NavLink
-                  to={route.path}
+                  to={route.key}
                   state={{ backgroundLocation: location }}
                   className={({ isActive }) =>
                     isActive ? styles.linkActive : styles.link
                   }
-                  key={route.path}
+                  key={route.key}
                 >
                   {route.display}
                 </NavLink>

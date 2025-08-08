@@ -1,5 +1,9 @@
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../context/AuthProvider';
 import { getDataWithAuth } from './getDataWithAuth';
+
+export interface ApiCallState {
+  isLoading: boolean;
+}
 
 type AuthenticatedCall = <T>(
   endpoint: string,

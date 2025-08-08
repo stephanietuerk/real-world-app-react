@@ -1,42 +1,76 @@
+export type RouteId =
+  | 'home'
+  | 'login'
+  | 'register'
+  | 'settings'
+  | 'profile'
+  | 'article'
+  | 'editor';
+
 export const ROUTE = {
   home: '/',
   login: '/login',
   register: '/register',
   settings: '/settings',
-  profile: '/profile/:username',
+  profile: (username?: string) => `/profile/${username ?? 'username'}`,
   article: (slug: string) => `/article/${slug}`,
   editor: (slug?: string) => (slug ? `/editor/${slug}` : '/editor'),
 } as const;
 
-export const ROUTES_NO_AUTH: {
-  path: string;
+interface RouteConfig {
+  key: RouteId;
+  path: (param?: string) => string;
   display: string;
   type: 'page' | 'dialog';
-}[] = [
+  requiresParam?: boolean;
+}
+
+export const ROUTES_NO_AUTH: RouteConfig[] = [
   {
-    path: ROUTE.home,
+    key: 'home',
+    path: () => ROUTE.home,
     display: 'Home',
     type: 'page',
   },
   {
-    path: ROUTE.login,
+    key: 'login',
+    path: () => ROUTE.login,
     display: 'Sign In',
     type: 'dialog',
   },
   {
-    path: ROUTE.register,
+    key: 'register',
+    path: () => ROUTE.register,
     display: 'Sign Up',
     type: 'dialog',
   },
 ];
 
-export const ROUTES_AUTH = [
+export const ROUTES_AUTH: RouteConfig[] = [
   {
-    path: ROUTE.home,
+    key: 'home',
+    path: () => ROUTE.home,
     display: 'Home',
     type: 'page',
   },
-  { path: ROUTE.editor(), display: 'New Post', type: 'page' },
-  { path: ROUTE.settings, display: 'Settings', type: 'page' },
-  { path: ROUTE.profile, display: 'Profile', type: 'page' },
+  {
+    key: 'editor',
+    path: (slug?: string) => ROUTE.editor(slug),
+    display: 'New Post',
+    type: 'page',
+    requiresParam: false,
+  },
+  {
+    key: 'settings',
+    path: () => ROUTE.settings,
+    display: 'Settings',
+    type: 'page',
+  },
+  {
+    key: 'profile',
+    path: (username?: string) => ROUTE.profile(username),
+    display: 'My Profile',
+    type: 'page',
+    requiresParam: true,
+  },
 ];

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router';
 import { useArticles } from '../../api/useArticles';
 import { useProfile } from '../../api/useProfile';
+import { useUser } from '../../context/UserProvider';
 import Banner from '../../shared/banner/Banner';
 import Breadcrumbs from '../../shared/breadcrumbs/Breadcrumbs';
 import { ROUTE } from '../../shared/constants/routing';
@@ -45,12 +46,13 @@ const BREADCRUMBS: (
   { display: 'Home', route: ROUTE.home },
   {
     display: 'User profile',
-    route: `${ROUTE.profile.split(':')[0]}${username}`,
+    route: ROUTE.profile(username),
   },
 ];
 
 export default function Profile() {
   const { username } = useParams();
+  const { user: loggedInUser } = useUser();
   const { profile } = useProfile(username);
   const [feedSelections, setFeedSelections] = useState<
     FeedSelections<ProfileFeed>
@@ -81,36 +83,35 @@ export default function Profile() {
 
   function handleFollow(): void {}
 
-  console.log('profile:', profile);
+  function isLoggedInUser(): boolean {
+    return username === loggedInUser?.username;
+  }
 
   if (isLoading) return <div>Loading...</div>;
   if (!profile.username) return <div>User not found.</div>;
 
   return (
     <>
-      <Banner background="var(--color-primary-dark)">
-        <div
-          className={styles.banner}
-          style={
-            {
-              '--color-breadcrumb-text': 'rgba(var(--color-surface-rgb), 0.7)',
-              '--color-link-primary': 'rgba(var(--color-surface-rgb), 0.7)',
-              '--color-link-hover': 'white',
-            } as React.CSSProperties
-          }
-        >
+      <Banner variant="dark">
+        <div className={styles.banner}>
           <div className={styles.breadcrumbs}>
-            <Breadcrumbs segments={BREADCRUMBS(profile.username)}></Breadcrumbs>
+            {!isLoggedInUser() && (
+              <Breadcrumbs
+                segments={BREADCRUMBS(profile.username)}
+              ></Breadcrumbs>
+            )}
           </div>
           <div className={styles.bannerUserProfile}>
             <p className={styles.bannerUserName}>{profile.username}</p>
             <p className={styles.bannerUserBio}>{profile.bio}</p>
           </div>
-          <button className={styles.followButton} onClick={handleFollow}>
-            {profile.following
-              ? `+ Unfollow ${profile.username}`
-              : `+ Follow ${profile.username}`}
-          </button>
+          {username !== loggedInUser?.username && (
+            <button className={styles.followButton} onClick={handleFollow}>
+              {profile.following
+                ? `+ Unfollow ${profile.username}`
+                : `+ Follow ${profile.username}`}
+            </button>
+          )}
         </div>
       </Banner>
       <MainLayout>
@@ -124,7 +125,9 @@ export default function Profile() {
               tagsTitle="Show articles about"
             >
               <div>
-                <p className={styles.feedTypeTitle}>Show this user's</p>
+                <p className={styles.feedTypeTitle}>
+                  {isLoggedInUser() ? 'Show my' : "Show this user's"}
+                </p>
                 <FeedTypeOptions<ProfileFeed>
                   selected={feedSelections.feedType}
                   selectFeed={selectFeedType}
@@ -139,7 +142,7 @@ export default function Profile() {
               articles={filteredArticles}
               noArticlesText={FEED_TYPE_OPTIONS[
                 feedSelections.feedType
-              ].noArticlesString(username)}
+              ].noArticlesString(isLoggedInUser() ? 'you' : username)}
               isLoading={isLoading}
             ></Feed>
           </ArticlesLayout>
