@@ -23,9 +23,11 @@ export default function Feed({ options }: { options: FeedOption[] }) {
 
   return (
     <div className={styles.feed}>
-      {isLoading && filteredArticles.length > 0 ? (
+      {/* {isLoading && articles.length > 0 ? (
         <p>Loading...</p> // TODO make loading overlay
-      ) : !isLoading && filteredArticles.length === 0 ? (
+      ) : */}
+
+      {!isLoading && filteredArticles.length === 0 ? (
         <p className={styles.noArticles}>{noArticlesText}</p>
       ) : (
         filteredArticles.map((a) => <ArticleCard article={a} key={a.slug} />)

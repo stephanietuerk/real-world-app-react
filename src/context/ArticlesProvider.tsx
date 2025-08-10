@@ -85,13 +85,14 @@ export function ArticlesProvider({
   const [feedSelections, setFeedSelections] =
     useState<FeedSelections>(feedControlsDefaults);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showLoading, setShowLoading] = useState(false);
   const [pendingArticles, setPendingArticles] = useState<
     ArticleMetadata[] | null
   >(null);
 
   const filteredArticles = useMemo(
-    () => getFilteredArticles(articles, feedSelections),
-    [articles, feedSelections],
+    () => getFilteredArticles(pendingArticles ?? articles, feedSelections),
+    [pendingArticles, articles, feedSelections],
   );
 
   const fetchArticles = () => {
@@ -106,7 +107,6 @@ export function ArticlesProvider({
     callApiWithAuth<ApiArticles>(url)
       .then((data) => {
         const articles = getSortedArticles(data);
-        setArticles(articles);
         setPendingArticles(articles);
       })
       .catch((error) => {
@@ -129,13 +129,27 @@ export function ArticlesProvider({
     }
   }, [isLoading, pendingArticles]);
 
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+
+    if (isLoading) {
+      timeout = setTimeout(() => setShowLoading(true), 300);
+    } else {
+      setShowLoading(false);
+      clearTimeout(timeout);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [isLoading]);
+
   return (
     <ArticlesContext.Provider
       value={{
-        articles: articles,
+        articles,
         feedSelections,
-        filteredArticles: filteredArticles,
-        isLoading: isLoading,
+        filteredArticles,
+        isLoading,
+        showLoading,
         refreshArticles: fetchArticles,
         setFeedSelections,
       }}

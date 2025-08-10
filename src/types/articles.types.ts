@@ -41,6 +41,7 @@ export interface ArticlesContextType {
   feedSelections: FeedSelections;
   filteredArticles: ArticleMetadata[];
   isLoading: boolean;
+  showLoading: boolean;
   refreshArticles: () => void;
   setFeedSelections: Dispatch<SetStateAction<FeedSelections>>;
 }
