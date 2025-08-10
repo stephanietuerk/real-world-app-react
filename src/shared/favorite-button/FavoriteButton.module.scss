@@ -1,0 +1,31 @@
+@use 'functions' as *;
+
+.favorite {
+  padding: grid(2);
+  border-radius: grid(1);
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.authenticated {
+  &:hover {
+    background: var(--color-accent-light);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.favoritePathOutline {
+  fill: rgba(var(--color-primary-rgb), 0.7);
+}
+
+.favoritePathFill {
+  fill: var(--color-primary);
+}
+
+.favoriteCount {
+  margin-left: grid(1);
+}

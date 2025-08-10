@@ -1,22 +1,14 @@
 import type { ReactNode } from 'react';
-import type { ArticleMetadata } from '../../../api/useArticles';
-import type { HomeFeed, ProfileFeed } from '../feed.types';
+import { useArticles } from '../../../api/useArticles';
 import styles from './FeedControls.module.scss';
 import TagOptions, { NONE_TAG } from './tag-options/TagOptions';
 
-export interface FeedSelections<T extends ProfileFeed | HomeFeed> {
-  feedType: T;
-  tags: string[];
-}
-
-interface FeedControlsProps<T extends ProfileFeed | HomeFeed> {
-  articles: ArticleMetadata[];
-  feedSelections: FeedSelections<T>;
-  setFeedSelections: React.Dispatch<React.SetStateAction<FeedSelections<T>>>;
-  showTags?: boolean;
+interface FeedControlsProps {
   tagsTitle: string;
   children: ReactNode;
 }
+
+const SHOW_TAGS_IF_NUM_ARTICLES = 3;
 
 function getNewTagSelections(
   prevTags: string[],
@@ -38,18 +30,15 @@ function getNewTagSelections(
   return newTagSelections;
 }
 
-export default function FeedControls<T extends ProfileFeed | HomeFeed>({
-  articles,
-  feedSelections,
-  setFeedSelections,
-  showTags = true,
+export default function FeedControls({
   tagsTitle,
   children,
-}: FeedControlsProps<T>) {
+}: FeedControlsProps) {
+  const { articles, feedSelections, setFeedSelections } = useArticles();
   // does not include NONE_TAG
   const tagOptions = [...new Set(articles.flatMap((a) => a.tagList))];
 
-  function toggleTag(clickedTag: string): void {
+  const toggleTag = (clickedTag: string) => {
     // Selections include NONE_TAG
     setFeedSelections((prev) => {
       const newTagSelections = getNewTagSelections(
@@ -62,7 +51,9 @@ export default function FeedControls<T extends ProfileFeed | HomeFeed>({
         tags: newTagSelections,
       };
     });
-  }
+  };
+
+  const showTags = articles.length > SHOW_TAGS_IF_NUM_ARTICLES;
 
   return (
     <div className={styles.feedControls}>

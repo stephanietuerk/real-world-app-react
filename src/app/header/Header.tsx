@@ -1,20 +1,74 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthProvider';
-import { useUser } from '../../context/UserProvider';
+import { useAuth } from '../../api/useAuth';
+import { useUser } from '../../api/useUser';
 import { APP_NAME } from '../../shared/constants/app';
-import {
-  ROUTE,
-  ROUTES_AUTH,
-  ROUTES_NO_AUTH,
-} from '../../shared/constants/routing';
+import { ROUTE, type RouteId } from '../../shared/constants/routing';
 import styles from './Header.module.scss';
+
+interface RouteConfig {
+  key: RouteId;
+  path: (param?: string) => string;
+  display: string;
+  type: 'page' | 'dialog';
+  requiresParam?: boolean;
+}
+
+const NAVBAR_ROUTES_NO_AUTH: RouteConfig[] = [
+  {
+    key: 'home',
+    path: () => ROUTE.home,
+    display: 'Home',
+    type: 'page',
+  },
+  {
+    key: 'login',
+    path: () => ROUTE.login,
+    display: 'Sign In',
+    type: 'dialog',
+  },
+  {
+    key: 'register',
+    path: () => ROUTE.register,
+    display: 'Sign Up',
+    type: 'dialog',
+  },
+];
+
+const NAVBAR_ROUTES_AUTH: RouteConfig[] = [
+  {
+    key: 'home',
+    path: () => ROUTE.home,
+    display: 'Home',
+    type: 'page',
+  },
+  {
+    key: 'editor',
+    path: (slug?: string) => ROUTE.editor(slug),
+    display: 'New Post',
+    type: 'page',
+    requiresParam: false,
+  },
+  {
+    key: 'settings',
+    path: () => ROUTE.settings,
+    display: 'Settings',
+    type: 'page',
+  },
+  {
+    key: 'profile',
+    path: (username?: string) => ROUTE.profile(username),
+    display: 'My Profile',
+    type: 'page',
+    requiresParam: true,
+  },
+];
 
 export default function Header() {
   const location = useLocation();
   const { hasToken } = useAuth();
   const { user } = useUser();
 
-  const routes = hasToken ? ROUTES_AUTH : ROUTES_NO_AUTH;
+  const routes = hasToken ? NAVBAR_ROUTES_AUTH : NAVBAR_ROUTES_NO_AUTH;
 
   return (
     <nav className={styles.container}>

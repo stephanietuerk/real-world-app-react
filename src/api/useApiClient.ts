@@ -1,5 +1,5 @@
-import { useAuth } from '../context/AuthProvider';
-import { getDataWithAuth } from './getDataWithAuth';
+import { fetchWithAuth } from './getDataWithAuth';
+import { useAuth } from './useAuth';
 
 export interface ApiCallState {
   isLoading: boolean;
@@ -11,7 +11,7 @@ type AuthenticatedCall = <T>(
 ) => Promise<T>;
 
 export function useApiClient(): {
-  authenticatedCall: AuthenticatedCall;
+  callApiWithAuth: AuthenticatedCall;
 } {
   const { setToken } = useAuth();
 
@@ -20,7 +20,7 @@ export function useApiClient(): {
     options?: RequestInit,
   ): Promise<T> => {
     try {
-      return await getDataWithAuth<T>(endpoint, options);
+      return await fetchWithAuth<T>(endpoint, options);
     } catch (error) {
       if (error instanceof Error && error.message.includes('401')) {
         setToken(null);
@@ -29,5 +29,5 @@ export function useApiClient(): {
     }
   };
 
-  return { authenticatedCall };
+  return { callApiWithAuth: authenticatedCall };
 }

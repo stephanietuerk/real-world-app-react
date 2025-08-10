@@ -1,26 +1,27 @@
 import clsx from 'clsx';
+import { useArticles } from '../../../../api/useArticles';
+import type { FeedOption } from '../../../../types/articles.types';
 import styles from './FeedTypeOptions.module.scss';
 
-export default function FeedTypeOptions<T extends string>({
-  selected,
-  selectFeed,
+export default function FeedTypeOptions({
   options,
 }: {
-  selected: T;
-  selectFeed: (feed: T) => void;
-  options: { display: string; id: T }[];
+  options: FeedOption[];
 }) {
+  const { feedSelections, setFeedSelections } = useArticles();
   return (
     <ul>
       {options.map((option) => (
-        <li style={{ listStyle: 'none' }}>
+        <li style={{ listStyle: 'none' }} key={option.id}>
           <button
             className={clsx(
               styles.selection,
-              selected === option.id && styles.active,
+              feedSelections.feed === option.id && styles.active,
             )}
-            onClick={() => selectFeed(option.id)}
-            aria-pressed={selected === option.id}
+            onClick={() =>
+              setFeedSelections((prev) => ({ ...prev, feed: option.id }))
+            }
+            aria-pressed={feedSelections.feed === option.id}
             key={option.id}
           >
             {option.display}

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from 'react';
+import { createContext, useEffect, useState, type ReactNode } from 'react';
 import type { User } from '../api/authenticate';
 import { useApiClient } from '../api/useApiClient';
 import { API_ROOT } from '../shared/constants/api';
@@ -14,15 +8,17 @@ interface UserContextType {
   setUser: (user: User | null) => void;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+export const UserContext = createContext<UserContextType | undefined>(
+  undefined,
+);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const { authenticatedCall } = useApiClient();
+  const { callApiWithAuth } = useApiClient();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const url = API_ROOT + 'user';
-    authenticatedCall<{ user: User }>(url)
+    callApiWithAuth<{ user: User }>(url)
       .then((data) => {
         setUser(data.user);
       })
@@ -37,10 +33,4 @@ export function UserProvider({ children }: { children: ReactNode }) {
       {children}
     </UserContext.Provider>
   );
-}
-
-export function useUser() {
-  const ctx = useContext(UserContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
-  return ctx;
 }

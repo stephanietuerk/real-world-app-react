@@ -1,4 +1,4 @@
-export async function getDataWithAuth<T>(
+export async function fetchWithAuth<T>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T> {

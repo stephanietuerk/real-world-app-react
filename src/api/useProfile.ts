@@ -14,14 +14,20 @@ interface ProfileState extends ApiCallState {
 }
 
 export function useProfile(user: string | undefined): ProfileState {
-  const { authenticatedCall } = useApiClient();
+  const { callApiWithAuth: authenticatedCall } = useApiClient();
   const [state, setState] = useState<ProfileState>({
     profile: {} as Profile,
     isLoading: true,
   });
 
   useEffect(() => {
+    if (!user) {
+      setState({ profile: {} as Profile, isLoading: false });
+      return;
+    }
+
     setState((prev) => ({ ...prev, isLoading: true }));
+
     if (user) {
       const url = API_ROOT + 'profiles/' + user;
       authenticatedCall<{ profile: Profile }>(url)

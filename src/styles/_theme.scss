@@ -11,6 +11,7 @@ $color-accent-whisper: color.adjust($color-accent, $lightness: 10%);
   --color-primary-light: #3371f8;
   --color-primary-light-rgb: 51, 113, 248;
   --color-primary-dark: #0b2566;
+  --color-primary-dark-rgb: 11, 37, 102;
   --color-accent: #{$color-accent};
   --color-accent-light: #{$color-accent-light};
   --color-accent-faint: #{$color-accent-faint};

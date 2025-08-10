@@ -1,24 +1,35 @@
-import type { ArticleMetadata } from '../../api/useArticles';
+import { useMemo } from 'react';
+import { useArticles } from '../../api/useArticles';
+import { useUser } from '../../api/useUser';
+import type { FeedOption } from '../../types/articles.types';
 import ArticleCard from './article-card/ArticleCard';
 import styles from './Feed.module.scss';
 
-interface FeedProps {
-  articles: ArticleMetadata[];
-  noArticlesText: string;
-  isLoading: boolean;
-}
+export default function Feed({ options }: { options: FeedOption[] }) {
+  const { user } = useUser();
+  const { isLoading, filteredArticles, feedSelections } = useArticles();
 
-export default function Feed({
-  articles,
-  noArticlesText,
-  isLoading,
-}: FeedProps) {
-  const renderContent = () => {
-    if (isLoading) return null;
-    if (!articles.length)
-      return <p className={styles.noArticles}>{noArticlesText}</p>;
-    return articles.map((a) => <ArticleCard article={a} key={a.slug} />);
-  };
+  const noArticlesText = useMemo(() => {
+    const option = options.find((o) => o.id === feedSelections.feed);
+    if (!option) {
+      throw new Error('Could not find selected option in options prop');
+    }
+    return user
+      ? option.noArticlesString(user.username)
+      : option.noArticlesString();
+  }, [user, feedSelections]);
 
-  return <div className={styles.feed}>{renderContent()}</div>;
+  console.log('filtered articles', filteredArticles);
+
+  return (
+    <div className={styles.feed}>
+      {isLoading && filteredArticles.length > 0 ? (
+        <p>Loading...</p> // TODO make loading overlay
+      ) : !isLoading && filteredArticles.length === 0 ? (
+        <p className={styles.noArticles}>{noArticlesText}</p>
+      ) : (
+        filteredArticles.map((a) => <ArticleCard article={a} key={a.slug} />)
+      )}
+    </div>
+  );
 }

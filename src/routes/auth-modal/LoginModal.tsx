@@ -1,5 +1,5 @@
 import { login } from '../../api/authenticate';
-import { useAuth } from '../../context/AuthProvider';
+import { useAuth } from '../../api/useAuth';
 import { ROUTE } from '../../shared/constants/routing';
 import AuthModal from './AuthModal';
 import styles from './ImplementedModal.module.scss';

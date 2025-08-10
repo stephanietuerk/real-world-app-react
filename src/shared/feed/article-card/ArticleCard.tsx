@@ -1,10 +1,12 @@
 import clsx from 'clsx';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import type { ArticleMetadata } from '../../../api/useArticles';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../api/useAuth';
+import type { ArticleMetadata } from '../../../types/articles.types';
+import { ROUTE } from '../../constants/routing';
 import { MONTH } from '../../constants/time';
+import FavoriteButton from '../../favorite-button/FavoriteButton';
 import Avatar from '../../icons/Avatar';
-import FavoriteIcon from '../../icons/FavoriteIcon';
 import styles from './ArticleCard.module.scss';
 
 function formatDate(date: Date): string {
@@ -14,19 +16,38 @@ function formatDate(date: Date): string {
   return `${month} ${day}, ${year}`;
 }
 
-export default function ArticleCard({ article }: { article: ArticleMetadata }) {
+interface ArticleCardProps {
+  article: ArticleMetadata;
+}
+
+export default function ArticleCard({ article }: ArticleCardProps) {
+  const navigate = useNavigate();
+  const { hasToken } = useAuth();
   const [favoriteIsHovered, setFavoriteIsHovered] = useState(false);
 
-  function handlePointerEnter(): void {
-    setFavoriteIsHovered(true);
-  }
+  const handleFavoritePointerEnter: (
+    e: React.PointerEvent<HTMLButtonElement>,
+  ) => void = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (hasToken) {
+      setFavoriteIsHovered(true);
+    }
+  };
 
-  function handlePointerLeave(): void {
-    setFavoriteIsHovered(false);
-  }
+  const handleFavoritePointerLeave: (
+    e: React.PointerEvent<HTMLButtonElement>,
+  ) => void = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (hasToken) {
+      setFavoriteIsHovered(false);
+    }
+  };
 
   return (
-    <div
+    <Link
+      to={ROUTE.article(article.slug)}
       className={clsx(
         styles.articleCard,
         favoriteIsHovered && styles.articleCardFavoriteHovered,
@@ -39,32 +60,24 @@ export default function ArticleCard({ article }: { article: ArticleMetadata }) {
             alt={`Avatar of ${article.author.username}`}
           />
           <div className={styles.authorDate}>
-            <Link to={`/profile/${article.author.username}`}>
-              <span className={styles.author}>{article.author.username}</span>
-            </Link>
+            <button
+              role="link"
+              className={styles.author}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigate(ROUTE.profile(article.author.username));
+              }}
+            >
+              {article.author.username}
+            </button>
             <p className={styles.date}>{formatDate(article.createdAt)}</p>
           </div>
         </div>
-        <button
-          className={styles.favorite}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
-        >
-          <FavoriteIcon
-            size={16}
-            isOutline={!favoriteIsHovered}
-            pathClassName={clsx(
-              styles.favoritePath,
-              favoriteIsHovered && styles.favoritePathHovered,
-            )}
-          ></FavoriteIcon>
-          <span className={styles.favoriteCount}>{article.favoritesCount}</span>
-        </button>
       </div>
       <p className={styles.title}>{article.title}</p>
       <p className={styles.description}>{article.description}</p>
       <div className={styles.bottomRow}>
-        <button className={styles.viewArticle}>Read article</button>
         <div className={styles.tags}>
           {article.tagList.map((tag) => (
             <p className={styles.tag} key={tag}>
@@ -72,7 +85,12 @@ export default function ArticleCard({ article }: { article: ArticleMetadata }) {
             </p>
           ))}
         </div>
+        <FavoriteButton
+          article={article}
+          handlePointerEnter={handleFavoritePointerEnter}
+          handlePointerLeave={handleFavoritePointerLeave}
+        ></FavoriteButton>
       </div>
-    </div>
+    </Link>
   );
 }
