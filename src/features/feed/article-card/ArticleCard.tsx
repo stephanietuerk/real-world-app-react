@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, type Dispatch } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../../api/useAuth';
-import type { ArticleMetadata } from '../../../types/articles.types';
-import { ROUTE } from '../../constants/routing';
-import { MONTH } from '../../constants/time';
-import FavoriteButton from '../../favorite-button/FavoriteButton';
-import Avatar from '../../icons/Avatar';
+import FavoriteButton from '../../../components/favorite-button/FavoriteButton';
+import Avatar from '../../../components/icons/Avatar';
+import { ROUTE } from '../../../shared/constants/routing';
+import { MONTH } from '../../../shared/constants/time';
+import type { ArticleMetadata } from '../../../shared/types/articles.types';
 import styles from './ArticleCard.module.scss';
 
 function formatDate(date: Date): string {
@@ -16,6 +16,19 @@ function formatDate(date: Date): string {
   return `${month} ${day}, ${year}`;
 }
 
+function handleNonCardHover(
+  e: React.PointerEvent<HTMLButtonElement>,
+  setFx: Dispatch<React.SetStateAction<boolean>>,
+  canSet: boolean,
+  value: boolean,
+): void {
+  e.preventDefault();
+  e.stopPropagation();
+  if (canSet) {
+    setFx(value);
+  }
+}
+
 interface ArticleCardProps {
   article: ArticleMetadata;
 }
@@ -23,26 +36,34 @@ interface ArticleCardProps {
 export default function ArticleCard({ article }: ArticleCardProps) {
   const navigate = useNavigate();
   const { hasToken } = useAuth();
+  const { username: profile } = useParams();
   const [favoriteIsHovered, setFavoriteIsHovered] = useState(false);
+  const [authorIsHovered, setAuthorIsHovered] = useState(false);
 
   const handleFavoritePointerEnter: (
     e: React.PointerEvent<HTMLButtonElement>,
   ) => void = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (hasToken) {
-      setFavoriteIsHovered(true);
-    }
+    handleNonCardHover(e, setFavoriteIsHovered, hasToken, true);
   };
 
   const handleFavoritePointerLeave: (
     e: React.PointerEvent<HTMLButtonElement>,
   ) => void = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (hasToken) {
-      setFavoriteIsHovered(false);
-    }
+    handleNonCardHover(e, setFavoriteIsHovered, hasToken, false);
+  };
+
+  const handleAuthorPointerEnter: (
+    e: React.PointerEvent<HTMLButtonElement>,
+  ) => void = (e) => {
+    const canSet = profile !== article.author.username;
+    handleNonCardHover(e, setAuthorIsHovered, canSet, true);
+  };
+
+  const handleAuthorPointerLeave: (
+    e: React.PointerEvent<HTMLButtonElement>,
+  ) => void = (e) => {
+    const canSet = profile !== article.author.username;
+    handleNonCardHover(e, setAuthorIsHovered, canSet, false);
   };
 
   return (
@@ -50,11 +71,17 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       to={ROUTE.article(article.slug)}
       className={clsx(
         styles.articleCard,
-        favoriteIsHovered && styles.articleCardFavoriteHovered,
+        (favoriteIsHovered || authorIsHovered) &&
+          styles.articleCardFavoriteHovered,
       )}
     >
       <div className={styles.topRow}>
-        <div className={styles.authorInfo}>
+        <div
+          className={clsx(
+            styles.authorInfo,
+            authorIsHovered && styles.authorInfoHovered,
+          )}
+        >
           <Avatar
             src={article.author.image}
             alt={`Avatar of ${article.author.username}`}
@@ -62,7 +89,12 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           <div className={styles.authorDate}>
             <button
               role="link"
-              className={styles.author}
+              className={clsx(
+                styles.author,
+                profile === article.author.username && styles.authorInert,
+              )}
+              onPointerEnter={handleAuthorPointerEnter}
+              onPointerLeave={handleAuthorPointerLeave}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();

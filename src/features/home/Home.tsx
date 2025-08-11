@@ -1,14 +1,17 @@
 import { useAuth } from '../../api/useAuth';
+import Banner from '../../components/banner/Banner';
+import MainLayout from '../../components/main-layout/MainLayout';
 import { ArticlesProvider } from '../../context/ArticlesProvider';
-import Banner from '../../shared/banner/Banner';
 import { APP_NAME } from '../../shared/constants/app';
-import ArticlesLayout from '../../shared/feed/articles-layout/ArticlesLayout';
-import Feed from '../../shared/feed/Feed';
-import FeedTypeOptions from '../../shared/feed/feed-controls/feed-type-options/FeedTypeOptions';
-import FeedControls from '../../shared/feed/feed-controls/FeedControls';
-import { NONE_TAG } from '../../shared/feed/feed-controls/tag-options/TagOptions';
-import MainLayout from '../../shared/main-layout/MainLayout';
-import type { FeedOption, FeedSelections } from '../../types/articles.types';
+import type {
+  FeedOption,
+  FeedSelections,
+} from '../../shared/types/articles.types';
+import ArticlesLayout from '../feed/articles-layout/ArticlesLayout';
+import Feed from '../feed/Feed';
+import FeedTypeOptions from '../feed/feed-controls/feed-type-options/FeedTypeOptions';
+import FeedControls from '../feed/feed-controls/FeedControls';
+import { NONE_TAG } from '../feed/feed-controls/tag-options/TagOptions';
 import styles from './Home.module.scss';
 
 export const HOME_FEED_OPTIONS: FeedOption[] = [
@@ -16,7 +19,7 @@ export const HOME_FEED_OPTIONS: FeedOption[] = [
     display: 'Conduit community',
     id: 'community',
     noArticlesString: () =>
-      "It looks like the Conduit community may have been on a writers' strike. There are no articles to show.",
+      "It looks like the Conduit community may be on a writers' strike. There are no articles to show.",
   },
   {
     display: 'Accounts I follow',

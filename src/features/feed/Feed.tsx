@@ -1,25 +1,33 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useParams } from 'react-router';
 import { useArticles } from '../../api/useArticles';
 import { useUser } from '../../api/useUser';
-import type { FeedOption } from '../../types/articles.types';
+import type { FeedOption } from '../../shared/types/articles.types';
 import ArticleCard from './article-card/ArticleCard';
 import styles from './Feed.module.scss';
 
 export default function Feed({ options }: { options: FeedOption[] }) {
   const { user } = useUser();
-  const { isLoading, filteredArticles, feedSelections } = useArticles();
+  const { username } = useParams();
+  const { isLoading, filteredArticles, feedSelections, setFeedSelections } =
+    useArticles();
+
+  useEffect(() => {
+    setFeedSelections((prev) => ({ ...prev, feed: options[0].id }));
+  }, [username]);
+
+  const displayUserName = user && user.username === username ? 'you' : username;
 
   const noArticlesText = useMemo(() => {
     const option = options.find((o) => o.id === feedSelections.feed);
     if (!option) {
       throw new Error('Could not find selected option in options prop');
     }
-    return user
-      ? option.noArticlesString(user.username)
-      : option.noArticlesString();
-  }, [user, feedSelections]);
 
-  console.log('filtered articles', filteredArticles);
+    return username
+      ? option.noArticlesString(displayUserName)
+      : option.noArticlesString();
+  }, [user, username, feedSelections]);
 
   return (
     <div className={styles.feed}>

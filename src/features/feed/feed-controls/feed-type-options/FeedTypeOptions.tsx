@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useArticles } from '../../../../api/useArticles';
-import type { FeedOption } from '../../../../types/articles.types';
+import type { FeedOption } from '../../../../shared/types/articles.types';
 import styles from './FeedTypeOptions.module.scss';
 
 export default function FeedTypeOptions({

@@ -58,6 +58,18 @@
 
 .authorInfo {
   display: flex;
+  padding: grid(2);
+  margin-left: grid(-2);
+  margin-top: grid(-2);
+  border-radius: grid(1);
+}
+
+.authorInfoHovered {
+  background: var(--color-accent-light);
+
+  .author {
+    text-decoration: underline;
+  }
 }
 
 .authorDate {
@@ -70,10 +82,10 @@
   display: block;
   color: var(--color-primary);
   margin-bottom: grid(1);
+}
 
-  &:hover {
-    text-decoration: underline;
-  }
+.authorInert {
+  color: var(--color-text);
 }
 
 .date {

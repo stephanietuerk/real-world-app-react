@@ -1,5 +1,5 @@
 import { API_ROOT } from '../shared/constants/api';
-import type { Article } from '../types/articles.types';
+import type { Article } from '../shared/types/articles.types';
 import { useApiClient } from './useApiClient';
 
 function getEndpoint(slug: string): string {

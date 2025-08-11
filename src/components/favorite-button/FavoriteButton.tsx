@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import type { MouseEventHandler } from 'react';
+import { useState, type MouseEventHandler } from 'react';
 import { useArticles } from '../../api/useArticles';
 import { useAuth } from '../../api/useAuth';
 import { useFavoriteActions } from '../../api/useFavorite';
-import type { ArticleMetadata } from '../../types/articles.types';
+import type { ArticleMetadata } from '../../shared/types/articles.types';
 import FavoriteIcon from '../icons/FavoriteIcon';
 import styles from './FavoriteButton.module.scss';
 
@@ -21,12 +21,26 @@ export default function FavoriteButton({
   const { hasToken } = useAuth();
   const { refreshArticles } = useArticles();
   const { favoriteArticle, unfavoriteArticle } = useFavoriteActions();
+  const [localFavorited, setLocalFavorited] = useState<boolean>(
+    article.favorited,
+  );
+  const [localCount, setLocalCount] = useState<number>(article.favoritesCount);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
+    const isRemovingFavorite = localFavorited;
+
+    setLocalFavorited(!localFavorited);
+    setLocalCount((c) => c + (isRemovingFavorite ? -1 : 1));
+
     if (hasToken) {
-      const action = article.favorited ? unfavoriteArticle : favoriteArticle;
-      await action(article.slug).then(() => refreshArticles());
+      try {
+        const action = isRemovingFavorite ? unfavoriteArticle : favoriteArticle;
+        await action(article.slug).then(() => refreshArticles());
+      } catch (error) {
+        setLocalFavorited(isRemovingFavorite);
+        setLocalCount((c) => c + (isRemovingFavorite ? 1 : -1));
+      }
     }
   };
 
@@ -39,10 +53,10 @@ export default function FavoriteButton({
     >
       <FavoriteIcon
         size={16}
-        isOutline={!article.favorited}
+        isOutline={!localFavorited}
         pathClassName={styles.favoritePathFill}
       ></FavoriteIcon>
-      <span className={styles.favoriteCount}>{article.favoritesCount}</span>
+      <span className={styles.favoriteCount}>{localCount}</span>
     </button>
   );
 }

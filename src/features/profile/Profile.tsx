@@ -1,17 +1,20 @@
 import { useParams } from 'react-router';
 import { useProfile } from '../../api/useProfile';
 import { useUser } from '../../api/useUser';
+import Banner from '../../components/banner/Banner';
+import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
+import MainLayout from '../../components/main-layout/MainLayout';
 import { ArticlesProvider } from '../../context/ArticlesProvider';
-import Banner from '../../shared/banner/Banner';
-import Breadcrumbs from '../../shared/breadcrumbs/Breadcrumbs';
 import { ROUTE } from '../../shared/constants/routing';
-import ArticlesLayout from '../../shared/feed/articles-layout/ArticlesLayout';
-import Feed from '../../shared/feed/Feed';
-import FeedTypeOptions from '../../shared/feed/feed-controls/feed-type-options/FeedTypeOptions';
-import FeedControls from '../../shared/feed/feed-controls/FeedControls';
-import { NONE_TAG } from '../../shared/feed/feed-controls/tag-options/TagOptions';
-import MainLayout from '../../shared/main-layout/MainLayout';
-import type { FeedOption, FeedSelections } from '../../types/articles.types';
+import type {
+  FeedOption,
+  FeedSelections,
+} from '../../shared/types/articles.types';
+import ArticlesLayout from '../feed/articles-layout/ArticlesLayout';
+import Feed from '../feed/Feed';
+import FeedTypeOptions from '../feed/feed-controls/feed-type-options/FeedTypeOptions';
+import FeedControls from '../feed/feed-controls/FeedControls';
+import { NONE_TAG } from '../feed/feed-controls/tag-options/TagOptions';
 import styles from './Profile.module.scss';
 
 export const PROFILE_FEED_OPTIONS: FeedOption[] = [
@@ -19,13 +22,13 @@ export const PROFILE_FEED_OPTIONS: FeedOption[] = [
     display: 'Own articles',
     id: 'author',
     noArticlesString: (username = 'this user') =>
-      `It looks like ${username} may have have written anything yet. There are no articles to show.`,
+      `It looks like ${username} may not have written anything yet. There are no articles to show.`,
   },
   {
     display: 'Favorites',
     id: 'favorited',
     noArticlesString: (username = 'this user') =>
-      `Hmmm. It looks like ${username} may not have favorited anything  yet.`,
+      `Hmmm. It looks like ${username} may not have favorited anything yet.`,
   },
 ];
 

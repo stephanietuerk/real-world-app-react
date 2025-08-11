@@ -1,12 +1,12 @@
 import { Route, Routes, useLocation } from 'react-router';
-import App from '../app/App.tsx';
 import { AuthProvider } from '../context/AuthProvider.tsx';
 import { UserProvider } from '../context/UserProvider.tsx';
+import LoginModal from '../features/auth-modal/LoginModal.tsx';
+import RegisterModal from '../features/auth-modal/RegisterModal.tsx';
+import Home from '../features/home/Home.tsx';
+import Profile from '../features/profile/Profile.tsx';
 import { ROUTE } from '../shared/constants/routing.ts';
-import LoginModal from './auth-modal/LoginModal.tsx';
-import RegisterModal from './auth-modal/RegisterModal.tsx';
-import Home from './home/Home.tsx';
-import Profile from './profile/Profile.tsx';
+import App from './App.tsx';
 
 export default function AppRouter() {
   const location = useLocation();

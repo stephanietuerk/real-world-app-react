@@ -8,14 +8,14 @@ import {
 import { useParams } from 'react-router';
 import { useApiClient } from '../api/useApiClient';
 import { useUser } from '../api/useUser';
+import { NONE_TAG } from '../features/feed/feed-controls/tag-options/TagOptions';
 import { API_ROOT } from '../shared/constants/api';
-import { NONE_TAG } from '../shared/feed/feed-controls/tag-options/TagOptions';
 import type {
   ArticleMetadata,
   ArticlesContextType,
   FeedSelections,
   ProfileFeed,
-} from '../types/articles.types';
+} from '../shared/types/articles.types';
 
 interface ApiArticles {
   articles: ArticleMetadata[];
@@ -120,7 +120,7 @@ export function ArticlesProvider({
 
   useEffect(() => {
     fetchArticles();
-  }, [feedSelections, user]);
+  }, [feedSelections, user, username]);
 
   useEffect(() => {
     if (!isLoading && pendingArticles !== null) {

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ArticlesContext } from '../context/ArticlesProvider';
-import type { ArticlesContextType } from '../types/articles.types';
+import type { ArticlesContextType } from '../shared/types/articles.types';
 
 export function useArticles(): ArticlesContextType {
   const ctx = useContext(ArticlesContext);
