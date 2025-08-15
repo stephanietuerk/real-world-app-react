@@ -1,0 +1,39 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.followButton {
+  @include label-small;
+  padding: grid(2);
+  background-color: var(--color-button-background);
+  color: var(--color-button-color);
+  border: 1px solid var(--color-button-border);
+  border-radius: grid(1);
+  align-self: flex-end;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  min-height: 42px; // don't change height if icon is not there
+
+  &:hover {
+    background-color: var(--color-button-hover-background);
+    border-color: var(--color-button-hover-border);
+    color: var(--color-button-hover-color);
+
+    .iconPath {
+      fill: var(--color-button-hover-icon);
+    }
+  }
+}
+
+.text {
+  margin-left: grid(1);
+}
+
+.iconSvg {
+  transform: translateY(-1px);
+}
+
+.iconPath {
+  transition: all 0.2s ease-in-out;
+  fill: var(--color-button-icon);
+}

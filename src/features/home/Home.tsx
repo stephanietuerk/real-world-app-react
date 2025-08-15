@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <Banner variant="light">
+      <Banner theme="light">
         <div className={styles.banner}>
           <p className={styles.name}>{APP_NAME}</p>
           <p className={styles.description}>A place to share your knowledge</p>

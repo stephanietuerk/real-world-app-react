@@ -52,6 +52,7 @@ export default function LoginModal() {
           type="email"
           name="email"
           id="login-email"
+          autoComplete="email"
           required
         />
       </div>
@@ -64,6 +65,7 @@ export default function LoginModal() {
           type="password"
           name="password"
           id="login-password"
+          autoComplete="current-password"
           required
         />
       </div>

@@ -42,24 +42,24 @@ const NAVBAR_ROUTES_AUTH: RouteConfig[] = [
     type: 'page',
   },
   {
+    key: 'profile',
+    path: (username?: string) => ROUTE.profile(username),
+    display: 'My Content',
+    type: 'page',
+    requiresParam: true,
+  },
+  {
     key: 'editor',
     path: (slug?: string) => ROUTE.editor(slug),
-    display: 'New Post',
+    display: 'New Article',
     type: 'page',
     requiresParam: false,
   },
   {
     key: 'settings',
     path: () => ROUTE.settings,
-    display: 'Settings',
+    display: 'Account',
     type: 'page',
-  },
-  {
-    key: 'profile',
-    path: (username?: string) => ROUTE.profile(username),
-    display: 'My Profile',
-    type: 'page',
-    requiresParam: true,
   },
 ];
 

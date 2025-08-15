@@ -3,6 +3,8 @@ import { useProfile } from '../../api/useProfile';
 import { useUser } from '../../api/useUser';
 import Banner from '../../components/banner/Banner';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
+import FollowButton from '../../components/follow-button/FollowButton';
+import Avatar from '../../components/icons/Avatar';
 import MainLayout from '../../components/main-layout/MainLayout';
 import { ArticlesProvider } from '../../context/ArticlesProvider';
 import { ROUTE } from '../../shared/constants/routing';
@@ -49,10 +51,8 @@ const BREADCRUMBS: (
 
 export default function Profile() {
   const { username } = useParams();
-  const { user: loggedInUser } = useUser();
   const { profile } = useProfile(username);
-
-  function handleFollow(): void {}
+  const { user: loggedInUser } = useUser();
 
   function isLoggedInUser(): boolean {
     return username === loggedInUser?.username;
@@ -62,7 +62,7 @@ export default function Profile() {
 
   return (
     <>
-      <Banner variant="dark">
+      <Banner theme="dark">
         <div className={styles.banner}>
           <div className={styles.breadcrumbs}>
             {!isLoggedInUser() && (
@@ -72,16 +72,22 @@ export default function Profile() {
             )}
           </div>
           <div className={styles.bannerUserProfile}>
-            <p className={styles.bannerUserName}>{profile.username}</p>
-            <p className={styles.bannerUserBio}>{profile.bio}</p>
+            <div className={styles.bannerUserContainer}>
+              <div className={styles.userNameContainer}>
+                <Avatar
+                  imgClass={styles.avatar}
+                  src={profile.image}
+                  alt={`avatar for ${profile.username}`}
+                  size={40}
+                ></Avatar>
+                <p className={styles.bannerUserName}>{profile.username}</p>
+              </div>
+              <p className={styles.bannerUserBio}>{profile.bio}</p>
+            </div>
+            {profile.username !== loggedInUser?.username && (
+              <FollowButton profile={profile} theme="dark"></FollowButton>
+            )}
           </div>
-          {username !== loggedInUser?.username && (
-            <button className={styles.followButton} onClick={handleFollow}>
-              {profile.following
-                ? `+ Unfollow ${profile.username}`
-                : `+ Follow ${profile.username}`}
-            </button>
-          )}
         </div>
       </Banner>
       <MainLayout>

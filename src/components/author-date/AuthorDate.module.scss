@@ -1,0 +1,39 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.authorInfo {
+  display: flex;
+  padding: grid(2);
+  margin-left: grid(-2);
+  margin-top: grid(-2);
+  border-radius: grid(2);
+}
+
+.authorInfoHovered {
+  background: var(--author-date-background-hover, none);
+
+  .author {
+    text-decoration: underline;
+  }
+}
+
+.authorDate {
+  margin-left: grid(2);
+}
+
+.author {
+  @extend %sans-medium;
+  @include label-small;
+  display: block;
+  color: var(--author-date-color-name, var(--color-primary));
+  margin-bottom: grid(1);
+}
+
+.authorInert {
+  color: var(--author-date-color-name-inert, var(--color-text));
+}
+
+.date {
+  @include label-2xs;
+  color: var(--author-date-color-date, var(--color-neutral-60));
+}

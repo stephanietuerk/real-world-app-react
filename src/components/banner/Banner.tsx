@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import styles from './Banner.module.scss';
 
 interface BannerProps {
-  variant: 'light' | 'dark';
+  theme: 'light' | 'dark' | 'accent';
   children: ReactNode;
 }
 
@@ -19,9 +19,18 @@ const THEME = {
     linkPrimary: 'rgba(var(--color-surface-rgb), 0.7)',
     linkHover: 'var(--color-surface)',
   },
+  accent: {
+    bg: 'var(--color-accent-whisper)',
+    breadcrumbText: 'rgba(var(--color-primary-rgb), 0.7)',
+    linkPrimary: 'rgba(var(--color-primary-dark), 0.7)',
+    linkHover: 'var(--color-primary)',
+  },
 };
 
-export default function Banner({ variant = 'light', children }: BannerProps) {
+export default function Banner({
+  theme: variant = 'light',
+  children,
+}: BannerProps) {
   return (
     <div
       className={styles.banner}

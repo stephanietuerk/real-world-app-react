@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router';
 import { AuthProvider } from '../context/AuthProvider.tsx';
 import { UserProvider } from '../context/UserProvider.tsx';
+import Article from '../features/article/Article.tsx';
 import LoginModal from '../features/auth-modal/LoginModal.tsx';
 import RegisterModal from '../features/auth-modal/RegisterModal.tsx';
 import Home from '../features/home/Home.tsx';
@@ -19,6 +20,7 @@ export default function AppRouter() {
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
             <Route path={'/profile/:username'} element={<Profile />} />
+            <Route path={'/article/:slug'} element={<Article />} />
           </Route>
         </Routes>
 

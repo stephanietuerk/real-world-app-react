@@ -6,6 +6,7 @@ interface AvatarProps {
   size?: number;
   round?: boolean;
   filter?: string;
+  imgClass?: string;
 }
 
 export default function Avatar({
@@ -14,12 +15,14 @@ export default function Avatar({
   size = 32,
   round = true,
   filter = 'none',
+  imgClass,
 }: AvatarProps) {
   const [imgSrc, setImgSrc] = useState(src);
   const fallback = '/images/fallback-avatar.svg';
 
   return (
     <img
+      className={imgClass}
       src={imgSrc}
       alt={alt}
       onError={() => {

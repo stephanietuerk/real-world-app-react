@@ -1,5 +1,6 @@
 import { FocusTrap } from 'focus-trap-react';
 import {
+  useEffect,
   useRef,
   useState,
   type Dispatch,
@@ -78,10 +79,14 @@ export default function AuthModal({
     handleSubmit(formData, closeModal, handleAuthError);
   }
 
+  useEffect(() => {
+    console.log('formRef:', formRef);
+  }, [formRef]);
+
   return (
-    <FocusTrap>
+    <div className={styles.overlay}>
       <div
-        className={styles.root}
+        className={styles.backdrop}
         tabIndex={-1}
         onClick={closeModal}
         onKeyUp={(e) => {
@@ -89,7 +94,8 @@ export default function AuthModal({
             closeModal();
           }
         }}
-      >
+      ></div>
+      <FocusTrap>
         <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
           <button
             ref={closeButtonRef}
@@ -129,7 +135,7 @@ export default function AuthModal({
             </button>
           </form>
         </div>
-      </div>
-    </FocusTrap>
+      </FocusTrap>
+    </div>
   );
 }

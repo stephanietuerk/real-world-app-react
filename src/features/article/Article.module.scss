@@ -22,14 +22,6 @@
   width: 100%;
   justify-content: space-between;
   margin-top: grid(4);
-  gap: grid(8);
-  margin-bottom: grid(3);
-}
-
-.bannerUserContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
 .userNameContainer {
@@ -43,16 +35,16 @@
   margin-right: grid(3);
 }
 
-.bannerUserName {
+.articleTitle {
   @include headline-large;
-  color: var(--color-primary-light);
+  color: var(--color-primary);
   margin: grid(4) 0 grid(2) 0;
   position: relative;
 }
 
 .bannerUserBio {
   color: rgba(var(--color-surface-rgb), 0.8);
-  // max-width: 600px;
+  max-width: 600px;
 }
 
 .followButton {
@@ -69,20 +61,4 @@
     border-color: var(--color-accent-faint);
     color: var(--color-primary);
   }
-}
-
-.name {
-  @include headline-large;
-  color: var(--color-primary);
-  margin-bottom: grid(1);
-}
-
-.description {
-  @include body-medium;
-  color: var(--color-blue-30);
-}
-
-.feedTypeTitle {
-  @include label-xs-caps-prominent;
-  margin-bottom: grid(2);
 }

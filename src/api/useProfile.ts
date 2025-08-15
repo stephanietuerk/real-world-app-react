@@ -14,7 +14,7 @@ interface ProfileState extends ApiCallState {
 }
 
 export function useProfile(user: string | undefined): ProfileState {
-  const { callApiWithAuth: authenticatedCall } = useApiClient();
+  const { callApiWithAuth } = useApiClient();
   const [state, setState] = useState<ProfileState>({
     profile: {} as Profile,
     isLoading: true,
@@ -30,7 +30,7 @@ export function useProfile(user: string | undefined): ProfileState {
 
     if (user) {
       const url = API_ROOT + 'profiles/' + user;
-      authenticatedCall<{ profile: Profile }>(url)
+      callApiWithAuth<{ profile: Profile }>(url)
         .then((data) => {
           setState({
             profile: data.profile,

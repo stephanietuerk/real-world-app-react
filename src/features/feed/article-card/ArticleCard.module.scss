@@ -54,43 +54,8 @@
   justify-content: space-between;
   margin-bottom: grid(6);
   align-items: flex-start;
-}
 
-.authorInfo {
-  display: flex;
-  padding: grid(2);
-  margin-left: grid(-2);
-  margin-top: grid(-2);
-  border-radius: grid(1);
-}
-
-.authorInfoHovered {
-  background: var(--color-accent-light);
-
-  .author {
-    text-decoration: underline;
-  }
-}
-
-.authorDate {
-  margin-left: grid(2);
-}
-
-.author {
-  @extend %sans-medium;
-  @include label-small;
-  display: block;
-  color: var(--color-primary);
-  margin-bottom: grid(1);
-}
-
-.authorInert {
-  color: var(--color-text);
-}
-
-.date {
-  @include label-2xs;
-  color: var(--color-neutral-60);
+  --author-date-background-hover: var(--color-accent-light);
 }
 
 .title {
