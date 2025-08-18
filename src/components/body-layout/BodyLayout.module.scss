@@ -1,6 +1,6 @@
 @use 'functions' as *;
 
-.articlesLayout {
+.bodyLayout {
   display: flex;
   justify-content: space-between;
   max-width: var(--page-max-width);

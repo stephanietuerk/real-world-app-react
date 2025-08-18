@@ -1,164 +1,164 @@
-%slab {
+@mixin slab {
   font-family: 'RobotoSlab', system-ui, serif;
 }
 
-%slab-light {
-  @extend %slab;
+@mixin slab-light {
+  @include slab;
   font-variation-settings: 'wght' 300;
 }
 
-%slab-regular {
-  @extend %slab;
+@mixin slab-regular {
+  @include slab;
   font-variation-settings: 'wght' 400;
 }
 
-%slab-medium {
-  @extend %slab;
+@mixin slab-medium {
+  @include slab;
   font-variation-settings: 'wght' 500;
 }
 
-%slab-semibold {
-  @extend %slab;
+@mixin slab-semibold {
+  @include slab;
   font-variation-settings: 'wght' 600;
 }
 
-%slab-bold {
-  @extend %slab;
+@mixin slab-bold {
+  @include slab;
   font-variation-settings: 'wght' 700;
 }
 
-%slab-extrabold {
-  @extend %slab;
+@mixin slab-extrabold {
+  @include slab;
   font-variation-settings: 'wght' 800;
 }
 
-%sans {
+@mixin sans {
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-%sans-light {
-  @extend %sans;
+@mixin sans-light {
+  @include sans;
   font-variation-settings: 'wght' 300;
 }
 
-%sans-regular {
-  @extend %sans;
+@mixin sans-regular {
+  @include sans;
   font-variation-settings: 'wght' 400;
 }
 
-%sans-medium {
-  @extend %sans;
+@mixin sans-medium {
+  @include sans;
   font-variation-settings: 'wght' 500;
 }
 
-%sans-semibold {
-  @extend %sans;
+@mixin sans-semibold {
+  @include sans;
   font-variation-settings: 'wght' 600;
 }
 
-%sans-bold {
-  @extend %sans;
+@mixin sans-bold {
+  @include sans;
   font-variation-settings: 'wght' 700;
 }
 
-%sans-extrabold {
-  @extend %sans;
+@mixin sans-extrabold {
+  @include sans;
   font-variation-settings: 'wght' 800;
 }
 
 @mixin display-large {
-  @extend %slab-regular;
+  @include slab-regular;
   font-size: 4.75rem;
   letter-spacing: -0.021rem;
   line-height: 5.33rem;
 }
 
 @mixin display-medium {
-  @extend %slab-regular;
+  @include slab-regular;
   font-size: 3.75rem;
   letter-spacing: 0;
   line-height: 4.33rem;
 }
 
 @mixin display-small {
-  @extend %slab-regular;
+  @include slab-regular;
   font-size: 3rem;
   letter-spacing: 0;
   line-height: 3.67rem;
 }
 
 @mixin headline-large {
-  @extend %slab-medium;
+  @include slab-medium;
   font-size: 2.67rem;
   letter-spacing: 0;
   line-height: 3.33rem;
 }
 
 @mixin headline-medium {
-  @extend %slab-medium;
+  @include slab-medium;
   font-size: 2.33rem;
   letter-spacing: 0;
   line-height: 3rem;
 }
 
 @mixin headline-small {
-  @extend %slab-medium;
+  @include slab-medium;
   font-size: 2rem;
   letter-spacing: 0;
   line-height: 2.67rem;
 }
 
 @mixin title-large {
-  @extend %slab-medium;
+  @include slab-medium;
   font-size: 1.83rem;
   letter-spacing: 0;
   line-height: 2.33rem;
 }
 
 @mixin title-medium {
-  @extend %slab-medium;
+  @include slab-medium;
   font-size: 1.33rem;
   letter-spacing: 0.01rem;
   line-height: 2rem;
 }
 
 @mixin title-small {
-  @extend %slab-medium;
+  @include slab-medium;
   font-size: 1.17rem;
   letter-spacing: 0.007rem;
   line-height: 1.67rem;
 }
 
 @mixin body-large {
-  @extend %sans-regular;
+  @include sans-regular;
   font-size: 1.33rem;
   letter-spacing: 0.042rem;
   line-height: 2rem;
 }
 
 @mixin body-medium {
-  @extend %sans-regular;
+  @include sans-regular;
   font-size: 1.17rem;
   letter-spacing: 0.021rem;
   line-height: 1.67rem;
 }
 
 @mixin body-small {
-  @extend %sans-regular;
+  @include sans-regular;
   font-size: 1rem;
   letter-spacing: 0.033rem;
   line-height: 1.33rem;
 }
 
 @mixin body-xs {
-  @extend %sans-regular;
+  @include sans-regular;
   font-size: 0.92rem;
   letter-spacing: 0;
   line-height: 1.25rem;
 }
 
 @mixin body-2xs {
-  @extend %sans-regular;
+  @include sans-regular;
   font-size: 0.83rem;
   letter-spacing: 0;
   line-height: 1rem;
@@ -166,7 +166,7 @@
 
 // Labels
 @mixin label-large {
-  @extend %sans-medium;
+  @include sans-medium;
   font-size: 1.17rem;
   letter-spacing: 0.015rem;
   line-height: 1.25rem;
@@ -174,7 +174,7 @@
 
 @mixin label-large-prominent {
   @include label-large;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-large-caps {
@@ -184,11 +184,11 @@
 
 @mixin label-large-caps-prominent {
   @include label-large-caps;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-medium {
-  @extend %sans-medium;
+  @include sans-medium;
   font-size: 1rem;
   letter-spacing: 0.03rem;
   line-height: 1rem;
@@ -196,7 +196,7 @@
 
 @mixin label-medium-prominent {
   @include label-medium;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-medium-caps {
@@ -206,11 +206,11 @@
 
 @mixin label-medium-caps-prominent {
   @include label-medium-caps;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-small {
-  @extend %sans-medium;
+  @include sans-medium;
   font-size: 0.92rem;
   letter-spacing: 0.03rem;
   line-height: 1rem;
@@ -218,7 +218,7 @@
 
 @mixin label-small-prominent {
   @include label-small;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-small-caps {
@@ -228,11 +228,11 @@
 
 @mixin label-small-caps-prominent {
   @include label-small-caps;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-xs {
-  @extend %sans-medium;
+  @include sans-medium;
   font-size: 0.83rem;
   letter-spacing: 0.015rem;
   line-height: 0.875rem;
@@ -240,7 +240,7 @@
 
 @mixin label-xs-prominent {
   @include label-xs;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-xs-caps {
@@ -251,11 +251,11 @@
 
 @mixin label-xs-caps-prominent {
   @include label-xs-caps;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-2xs {
-  @extend %sans-medium;
+  @include sans-medium;
   font-size: 0.75rem;
   letter-spacing: 0.015rem;
   line-height: 0.75rem;
@@ -263,7 +263,7 @@
 
 @mixin label-2xs-prominent {
   @include label-2xs;
-  @extend %sans-bold;
+  @include sans-bold;
 }
 
 @mixin label-2xs-caps {
@@ -274,5 +274,5 @@
 
 @mixin label-2xs-caps-prominent {
   @include label-2xs-caps;
-  @extend %sans-bold;
+  @include sans-bold;
 }

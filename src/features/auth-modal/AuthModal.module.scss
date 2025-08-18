@@ -56,7 +56,7 @@
 
 .signIn {
   @include headline-medium;
-  @extend %sans-regular;
+  @include sans-regular;
   margin-bottom: grid(3);
 }
 

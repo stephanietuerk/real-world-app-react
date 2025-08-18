@@ -3,10 +3,14 @@
 
 .authorInfo {
   display: flex;
-  padding: grid(2);
+
+  border-radius: grid(2);
+}
+
+.hasHover {
   margin-left: grid(-2);
   margin-top: grid(-2);
-  border-radius: grid(2);
+  padding: grid(2);
 }
 
 .authorInfoHovered {
@@ -18,11 +22,15 @@
 }
 
 .authorDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   margin-left: grid(2);
 }
 
 .author {
-  @extend %sans-medium;
+  @include sans-medium;
   @include label-small;
   display: block;
   color: var(--author-date-color-name, var(--color-primary));

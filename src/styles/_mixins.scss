@@ -1,0 +1,143 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+@mixin markdown-content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.25rem;
+    margin: grid(8) 0 grid(4);
+  }
+
+  h1 {
+    @include headline-medium;
+    @include sans;
+    padding-bottom: grid(1);
+  }
+
+  h2 {
+    @include headline-small;
+    @include sans;
+    margin-top: grid(6);
+  }
+
+  h3 {
+    @include title-large;
+    @include sans;
+  }
+
+  h4 {
+    @include title-medium;
+    @include sans;
+  }
+
+  h5 {
+    @include title-small;
+    @include sans;
+  }
+
+  h6 {
+    @include body-large;
+    @include sans;
+  }
+
+  // Paragraphs & lists
+  p {
+    @include body-small;
+    margin: grid(4) 0;
+    line-height: 1.6rem;
+  }
+
+  ul,
+  ol {
+    margin: grid(4) 0 grid(4) grid(8);
+    padding: 0;
+  }
+  li + li {
+    margin-top: grid(1);
+    line-height: 1.6rem;
+  }
+
+  // Links
+  a {
+    color: #0b5fff;
+    text-decoration: underline;
+    line-height: 1.6rem;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  // Blockquotes
+  blockquote {
+    border-left: 4px solid #ddd;
+    margin: grid(4) 0;
+    padding: 0.5rem grid(4);
+    color: #555;
+    font-style: italic;
+    background: #fafafa;
+    line-height: 1.6rem;
+  }
+
+  // Inline code
+  code {
+    font-family: ui-monospace, monospace;
+    background: #f6f6f6;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    line-height: 1.6rem;
+  }
+
+  // Code blocks
+  pre {
+    background: #f6f8fa;
+    padding: grid(4);
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.45;
+    code {
+      background: none;
+      padding: 0;
+      font-size: inherit;
+    }
+  }
+
+  // Tables
+  table {
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    width: 100%;
+    font-size: 0.95em;
+  }
+  th,
+  td {
+    border: 1px solid #e5e5e5;
+    padding: 0.6em 0.8em;
+    line-height: 1.6rem;
+  }
+  th {
+    background: #fafafa;
+    font-weight: 600;
+    line-height: 1.6rem;
+  }
+
+  // Images
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: grid(4) 0;
+    border-radius: 4px;
+  }
+
+  // Horizontal rule
+  hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: grid(8) 0;
+  }
+}

@@ -95,7 +95,7 @@ export function ArticlesProvider({
     [pendingArticles, articles, feedSelections],
   );
 
-  const fetchArticles = () => {
+  const fetchArticles = async () => {
     setIsLoading(true);
 
     const endpointType = isUsersFeed(feedSelections.feed) ? 'user' : 'global';
@@ -104,18 +104,16 @@ export function ArticlesProvider({
       url += `?${feedSelections.feed}=${encodeURIComponent(username)}`;
     }
 
-    callApiWithAuth<ApiArticles>(url)
-      .then((data) => {
-        const articles = getSortedArticles(data);
-        setPendingArticles(articles);
-      })
-      .catch((error) => {
-        console.log('Failed to fetch articles:', error);
-        setPendingArticles([]);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    try {
+      const data = await callApiWithAuth<ApiArticles>(url);
+      const articles = getSortedArticles(data);
+      setPendingArticles(articles);
+    } catch (error) {
+      console.log('Failed to fetch articles:', error);
+      setPendingArticles([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -150,7 +148,7 @@ export function ArticlesProvider({
         filteredArticles,
         isLoading,
         showLoading,
-        refreshArticles: fetchArticles,
+        syncApi: fetchArticles,
         setFeedSelections,
       }}
     >

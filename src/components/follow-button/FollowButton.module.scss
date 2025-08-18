@@ -3,24 +3,26 @@
 
 .followButton {
   @include label-small;
-  padding: grid(2);
-  background-color: var(--color-button-background);
-  color: var(--color-button-color);
-  border: 1px solid var(--color-button-border);
+  transition: all 0.2s ease-in-out;
+  padding: var(--follow-button-padding);
+  background: var(--follow-button-background);
+  color: var(--follow-button-color);
+  border: 1px solid var(--follow-button-border-color);
   border-radius: grid(1);
   align-self: flex-end;
-  transition: all 0.2s ease-in-out;
   display: flex;
   align-items: center;
-  min-height: 42px; // don't change height if icon is not there
+  min-height: var(
+    --follow-button-min-height
+  ); // don't change height if icon is not there
 
   &:hover {
-    background-color: var(--color-button-hover-background);
-    border-color: var(--color-button-hover-border);
-    color: var(--color-button-hover-color);
+    background: var(--follow-button-hover-background);
+    border-color: var(--follow-button-hover-border-color);
+    color: var(--follow-button-hover-color);
 
     .iconPath {
-      fill: var(--color-button-hover-icon);
+      fill: var(--follow-button-hover-icon-color);
     }
   }
 }
@@ -35,5 +37,5 @@
 
 .iconPath {
   transition: all 0.2s ease-in-out;
-  fill: var(--color-button-icon);
+  fill: var(--follow-button-icon-color);
 }

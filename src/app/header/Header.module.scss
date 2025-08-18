@@ -15,7 +15,7 @@
 }
 
 .name {
-  @extend %slab-bold;
+  @include slab-bold;
   @include title-small;
   color: var(--color-primary);
 }

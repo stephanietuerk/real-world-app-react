@@ -15,34 +15,29 @@ interface ProfileState extends ApiCallState {
 
 export function useProfile(user: string | undefined): ProfileState {
   const { callApiWithAuth } = useApiClient();
-  const [state, setState] = useState<ProfileState>({
-    profile: {} as Profile,
-    isLoading: true,
-  });
+  const [profile, setProfile] = useState<Profile>({} as Profile);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const fetchProfile = async () => {
+    if (!user) return;
+
+    setIsLoading(true);
+    const url = API_ROOT + 'profiles/' + user;
+
+    try {
+      const data = await callApiWithAuth<{ profile: Profile }>(url);
+      setProfile(data.profile);
+    } catch (error) {
+      console.log('Error in useProfile:', error);
+      setProfile({} as Profile);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (!user) {
-      setState({ profile: {} as Profile, isLoading: false });
-      return;
-    }
-
-    setState((prev) => ({ ...prev, isLoading: true }));
-
-    if (user) {
-      const url = API_ROOT + 'profiles/' + user;
-      callApiWithAuth<{ profile: Profile }>(url)
-        .then((data) => {
-          setState({
-            profile: data.profile,
-            isLoading: false,
-          });
-        })
-        .catch((error) => {
-          console.log('Error in useProfile:', error);
-          setState((prev) => ({ ...prev, profile: {} as Profile }));
-        });
-    }
+    fetchProfile();
   }, [user]);
 
-  return state;
+  return { profile, isLoading };
 }

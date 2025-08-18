@@ -1,4 +1,5 @@
-import { useState, type CSSProperties, type MouseEventHandler } from 'react';
+import clsx from 'clsx';
+import { useState, type MouseEventHandler } from 'react';
 import { useAuth } from '../../api/useAuth';
 import { useFollowActions } from '../../api/useFollow';
 import type { Profile } from '../../api/useProfile';
@@ -7,45 +8,14 @@ import styles from './FollowButton.module.scss';
 
 interface FollowButtonProps {
   profile: Profile;
-  theme: 'light' | 'dark' | 'accent';
+  className?: string;
+  iconSize?: number;
 }
-
-const THEME = {
-  light: {
-    bg: 'none',
-    color: 'var(--color-primary)',
-    borderColor: 'var(--color-primary)',
-    icon: 'var(--color-primary)',
-    hoverBg: 'var(--color-accent-light)',
-    hoverColor: 'var(--color-primary)',
-    hoverBorderColor: 'var(--color-primary)',
-    hoverIcon: 'var(--color-primary)',
-  },
-  dark: {
-    bg: 'none',
-    color: 'rgba(var(--color-surface-rgb), 0.8)',
-    borderColor: 'rgba(var(--color-surface-rgb), 0.8)',
-    icon: 'rgba(var(--color-surface-rgb), 0.8)',
-    hoverBg: 'var(--color-accent-faint)',
-    hoverColor: 'var(--color-primary)',
-    hoverBorderColor: 'var(--color-accent-faint)',
-    hoverIcon: 'var(--color-primary)',
-  },
-  accent: {
-    bg: 'white',
-    color: 'var(--color-primary)',
-    borderColor: 'var(--color-primary)',
-    icon: 'var(--color-primary)',
-    hoverBg: 'var(--color-accent-light)',
-    hoverColor: 'var(--color-primary)',
-    hoverBorderColor: 'var(--color-primary)',
-    hoverIcon: 'var(--color-primary)',
-  },
-};
 
 export default function FollowButton({
   profile,
-  theme: variant,
+  className,
+  iconSize = 24,
 }: FollowButtonProps) {
   const { hasToken } = useAuth();
   const { followUser, unfollowUser } = useFollowActions();
@@ -72,25 +42,13 @@ export default function FollowButton({
 
   return (
     <button
-      className={styles.followButton}
+      className={clsx(styles.followButton, className)}
       onClick={handleClick}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
-      style={
-        {
-          '--color-button-background': THEME[variant].bg,
-          '--color-button-color': THEME[variant].color,
-          '--color-button-border': THEME[variant].borderColor,
-          '--color-button-icon': THEME[variant].icon,
-          '--color-button-hover-background': THEME[variant].hoverBg,
-          '--color-button-hover-color': THEME[variant].hoverColor,
-          '--color-button-hover-border': THEME[variant].hoverBorderColor,
-          '--color-button-hover-icon': THEME[variant].hoverIcon,
-        } as CSSProperties
-      }
     >
       <AddAddedIcon
-        size={24}
+        size={iconSize}
         variant={!localFollowing ? 'plus' : hovering ? 'minus' : 'check'}
         svgClassName={styles.iconSvg}
         pathClassName={styles.iconPath}

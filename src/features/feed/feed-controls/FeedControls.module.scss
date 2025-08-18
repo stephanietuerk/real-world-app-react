@@ -2,12 +2,9 @@
 @use 'typography' as *;
 
 .feedControls {
-  flex-basis: 25%;
-  min-width: 200px;
   display: flex;
   flex-direction: column;
   gap: grid(12);
-  width: 100%;
 }
 
 .tagsTitle {

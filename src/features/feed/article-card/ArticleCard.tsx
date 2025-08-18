@@ -1,9 +1,11 @@
 import clsx from 'clsx';
 import { useState, type Dispatch } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useArticles } from '../../../api/useArticles';
 import { useAuth } from '../../../api/useAuth';
 import AuthorDate from '../../../components/author-date/AuthorDate';
 import FavoriteButton from '../../../components/favorite-button/FavoriteButton';
+import Tags from '../../../components/tags/Tags';
 import { ROUTE } from '../../../shared/constants/routing';
 import type { ArticleMetadata } from '../../../shared/types/articles.types';
 import styles from './ArticleCard.module.scss';
@@ -28,6 +30,7 @@ interface ArticleCardProps {
 export default function ArticleCard({ article }: ArticleCardProps) {
   const { hasToken } = useAuth();
   const { username: profile } = useParams();
+  const { syncApi: refreshArticles } = useArticles();
   const [favoriteIsHovered, setFavoriteIsHovered] = useState(false);
   const [authorIsHovered, setAuthorIsHovered] = useState(false);
 
@@ -56,36 +59,6 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       )}
     >
       <div className={styles.topRow}>
-        {/* <div
-          className={clsx(
-            styles.authorInfo,
-            authorIsHovered && styles.authorInfoHovered,
-          )}
-        >
-          <Avatar
-            src={article.author.image}
-            alt={`Avatar of ${article.author.username}`}
-          />
-          <div className={styles.authorDate}>
-            <button
-              role="link"
-              className={clsx(
-                styles.author,
-                profile === article.author.username && styles.authorInert,
-              )}
-              onPointerEnter={(e) => handleAuthorHover(e, true)}
-              onPointerLeave={(e) => handleAuthorHover(e, false)}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                navigate(ROUTE.profile(article.author.username));
-              }}
-            >
-              {article.author.username}
-            </button>
-            <p className={styles.date}>{formatDate(article.createdAt)}</p>
-          </div>
-        </div> */}
         <AuthorDate
           article={article}
           handleHover={handleAuthorHover}
@@ -94,17 +67,14 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       <p className={styles.title}>{article.title}</p>
       <p className={styles.description}>{article.description}</p>
       <div className={styles.bottomRow}>
-        <div className={styles.tags}>
-          {article.tagList.map((tag) => (
-            <p className={styles.tag} key={tag}>
-              {tag}
-            </p>
-          ))}
-        </div>
+        <Tags article={article} className={styles.tags}></Tags>
         <FavoriteButton
-          article={article}
+          favorited={article.favorited}
+          count={article.favoritesCount}
+          slug={article.slug}
           handlePointerEnter={(e) => handleFavoriteHover(e, true)}
           handlePointerLeave={(e) => handleFavoriteHover(e, false)}
+          syncWithApi={refreshArticles}
         ></FavoriteButton>
       </div>
     </Link>
