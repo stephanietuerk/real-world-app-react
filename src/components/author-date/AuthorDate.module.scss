@@ -1,0 +1,47 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.authorInfo {
+  display: flex;
+
+  border-radius: grid(2);
+}
+
+.hasHover {
+  margin-left: grid(-2);
+  margin-top: grid(-2);
+  padding: grid(2);
+}
+
+.authorInfoHovered {
+  background: var(--author-date-background-hover, none);
+
+  .author {
+    text-decoration: underline;
+  }
+}
+
+.authorDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: grid(2);
+}
+
+.author {
+  @include sans-medium;
+  @include label-small;
+  display: block;
+  color: var(--author-date-color-name, var(--color-primary));
+  margin-bottom: grid(1);
+}
+
+.authorInert {
+  color: var(--author-date-color-name-inert, var(--color-text));
+}
+
+.date {
+  @include label-2xs;
+  color: var(--author-date-color-date, var(--color-neutral-60));
+}

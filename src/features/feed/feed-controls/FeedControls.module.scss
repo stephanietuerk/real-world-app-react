@@ -1,0 +1,13 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.feedControls {
+  display: flex;
+  flex-direction: column;
+  gap: grid(12);
+}
+
+.tagsTitle {
+  @include label-xs-caps-prominent;
+  margin-bottom: grid(2);
+}

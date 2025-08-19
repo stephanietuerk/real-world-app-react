@@ -1,0 +1,18 @@
+@use 'functions' as *;
+@use 'typography' as *;
+
+.tags {
+  display: var(--tags-display, flex);
+  flex-direction: var(--tags-flex-direction, row);
+  flex-wrap: var(--tags-flex-wrap, wrap);
+}
+
+.tag {
+  @include label-2xs;
+  border-radius: grid(2);
+  border: 1px solid var(--tags-color-border, var(--color-inert-light));
+  color: var(--tags-color-text, var(--color-inert));
+  padding: grid(1) grid(2);
+  margin: grid(1) grid(1) 0 0;
+  background: var(--tags-background, var(--color-surface));
+}

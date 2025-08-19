@@ -1,23 +1,30 @@
+@use 'sass:color';
+
+$color-accent: #beffca;
+$color-accent-light: color.adjust($color-accent, $lightness: 2%);
+$color-accent-faint: color.adjust($color-accent, $lightness: 4%);
+$color-accent-whisper: color.adjust($color-accent, $lightness: 10%);
+
 :root {
   --color-primary: #242ef7;
   --color-primary-rgb: 36, 46, 247;
   --color-primary-light: #3371f8;
   --color-primary-light-rgb: 51, 113, 248;
   --color-primary-dark: #0b2566;
-  --color-accent: #beffca;
-  --color-accent-rgb: 190, 255, 202;
-  --color-accent-light: #d3fddb;
-  --color-accent-light-rgb: 211, 253, 219;
-  --color-accent-faint: #e8ffea;
-  --color-accent-faint-rgb: 232, 255, 234;
-  --color-accent-whisper: #f7fff8;
-  --color-accent-whisper-rgb: 247, 255, 248;
+  --color-primary-dark-rgb: 11, 37, 102;
+  --color-accent: #{$color-accent};
+  --color-accent-light: #{$color-accent-light};
+  --color-accent-faint: #{$color-accent-faint};
+  --color-accent-whisper: #{$color-accent-whisper};
   --color-surface: #ffffff;
   --color-surface-rgb: 255, 255, 255;
   --color-warn-light: #fdebeb;
   --color-link-primary: var(--color-primary);
   --color-link-hover: var(--color-primary);
   --color-text: var(--color-blue-10);
+  --color-text-rgb: 4, 20, 48;
+  --color-inert: rgba(var(--color-text-rgb), 0.7);
+  --color-inert-light: rgba(var(--color-text-rgb), 0.5);
   --color-modal-background: 10, 31, 74;
 
   --color-blue-0: #000c1f;

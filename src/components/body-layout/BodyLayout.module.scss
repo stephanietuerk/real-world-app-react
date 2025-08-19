@@ -1,0 +1,10 @@
+@use 'functions' as *;
+
+.bodyLayout {
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--page-max-width);
+  width: 100%;
+  gap: grid(8);
+  padding-top: grid(8);
+}

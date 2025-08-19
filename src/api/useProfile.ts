@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API_ROOT } from '../shared/constants/api';
-import { useApiClient } from './useApiClient';
+import { useApiClient, type ApiCallState } from './useApiClient';
 
 export interface Profile {
   username: string;
@@ -9,36 +9,36 @@ export interface Profile {
   following: boolean;
 }
 
-export function useProfile(user: string | undefined): {
-  profile: Profile;
-  isLoading: boolean;
-} {
-  const { authenticatedCall } = useApiClient();
-  const [state, setState] = useState<{
-    profile: Profile;
-    isLoading: boolean;
-  }>({
-    profile: {} as Profile,
-    isLoading: true,
-  });
+interface ProfileState extends ApiCallState {
+  profile: Profile | null;
+}
+
+export function useProfile(username: string | undefined): ProfileState {
+  const { callApiWithAuth } = useApiClient();
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<unknown>(null);
+
+  const fetchProfile = async () => {
+    if (!username) return;
+
+    setIsLoading(true);
+    const url = API_ROOT + 'profiles/' + username;
+
+    try {
+      const data = await callApiWithAuth<{ profile: Profile }>(url);
+      setProfile(data.profile);
+    } catch (error) {
+      setError(error);
+      setProfile(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setState((prev) => ({ ...prev, isLoading: true }));
-    if (user) {
-      const url = API_ROOT + 'profiles/' + user;
-      authenticatedCall<{ profile: Profile }>(url)
-        .then((data) => {
-          setState({
-            profile: data.profile,
-            isLoading: false,
-          });
-        })
-        .catch((error) => {
-          console.log('Error in useProfile:', error);
-          setState((prev) => ({ ...prev, profile: {} as Profile }));
-        });
-    }
-  }, [user]);
+    fetchProfile();
+  }, [username]);
 
-  return state;
+  return { profile, isLoading, error };
 }

@@ -1,0 +1,97 @@
+@use 'functions' as *;
+@use 'typography' as *;
+@use 'mixins' as *;
+
+$sidebar-gap: grid(6);
+
+.bannerComponent {
+  --banner-color-background: var(--color-surface);
+  --breadcrumbs-color-text: rgba(var(--color-primary-rgb), 0.7);
+  --color-link-primary: rgba(var(--color-primary-rgb), 0.7);
+  --color-link-hover: var(--color-primary);
+}
+
+.banner {
+  padding: grid(4) 0 grid(2) 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.breadcrumbs {
+  align-self: flex-start;
+  min-height: 16px;
+}
+
+.articleTitle {
+  @include headline-large;
+  display: inline-block;
+  color: var(--color-text);
+  margin: grid(4) 0 0 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 6px solid var(--color-accent);
+  gap: grid(2);
+  justify-content: space-between;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: $sidebar-gap;
+}
+
+.sidebarLabel {
+  @include label-xs-caps-prominent;
+  margin-bottom: grid(1);
+}
+
+.followButton {
+  --follow-button-background: none;
+  --follow-button-color: var(--color-primary);
+  --follow-button-border-color: none;
+  --follow-button-icon-color: rgba(var(--color-primary-rgb), 0.8);
+  --follow-button-hover-background: var(--color-accent-faint);
+  --follow-button-hover-color: var(--color-primary);
+  --follow-button-hover-border-color: var(--color-accent-faint);
+  --follow-button-hover-icon-color: var(--color-primary);
+  --follow-button-padding: #{grid(1)} #{grid(2)} #{grid(1)} #{grid(1)};
+  --follow-button-min-height: 36px;
+
+  margin-left: grid(1) * -1;
+  margin-top: grid(1);
+}
+
+.favoriteButton {
+  --favorite-button-background: none;
+  --favorite-button-color: var(--color-primary);
+  --favorite-button-border-color: var(--color-primary);
+  --favorite-button-icon-color: rgba(var(--color-primary-rgb), 0.8);
+  --favorite-button-hover-background: var(--color-accent-faint);
+  --favorite-button-hover-color: var(--color-primary);
+  --favorite-button-hover-border-color: var(--color-primary);
+  --favorite-button-hover-icon-color: var(--color-primary);
+  --favorite-button-padding: #{grid(1)} #{grid(2)} #{grid(1)} #{grid(1)};
+  --favorite-button-min-height: 36px;
+
+  margin-left: grid(1) * -1;
+  margin-top: grid(1);
+}
+
+.favoriteReadout {
+  --favorite-button-color: rgba(var(--color-text-rgb), 0.7);
+  --favorite-button-heart-outline: rgba(var(--color-text-rgb), 0.5);
+  --favorite-button-heart-fill: rgba(var(--color-text-rgb), 0.5);
+}
+
+.articleBody {
+  @include markdown-content;
+
+  :first-child {
+    margin-top: 0;
+  }
+}

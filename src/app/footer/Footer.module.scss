@@ -22,7 +22,7 @@ $color-base: rgba(255, 255, 255, 0.7);
 }
 
 .name {
-  @extend %slab-semibold;
+  @include slab-semibold;
   color: $color-accent;
   padding-right: grid(1);
 }
