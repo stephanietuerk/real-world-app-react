@@ -1,4 +1,4 @@
-# Stephanie's React Learning App
+# Building the Real World app in React, from scratch
 
 After 6+ years of working professionally in Angular, I'm learning React by rebuilding the [Real World](https://github.com/gothinkster/realworld) demo app. I'm building from scratch (not cloning the starter repo, Copilot turned off) to maximize learning :).
 
