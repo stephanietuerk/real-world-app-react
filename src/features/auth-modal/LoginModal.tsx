@@ -6,21 +6,18 @@ import styles from './ImplementedModal.module.scss';
 
 export default function LoginModal() {
   const { setToken } = useAuth();
-  function handleInput(
-    form: HTMLFormElement,
-    setError: React.Dispatch<React.SetStateAction<string | null>>,
-  ) {
-    const email = form.elements.namedItem('email') as HTMLInputElement | null;
-    if (email && email.value.trim() === '') {
-      setError((prev) => (prev ? null : prev));
-    }
-  }
 
-  async function handleSubmit(
+  const handleInput = (
+    setError: React.Dispatch<React.SetStateAction<string | null>>,
+  ) => {
+    setError(null);
+  };
+
+  const handleSubmit = async (
     formData: FormData,
     closeModal: () => void,
     handleAuthError: (err: unknown) => void,
-  ): Promise<void> {
+  ): Promise<void> => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
@@ -31,7 +28,7 @@ export default function LoginModal() {
     } catch (err) {
       handleAuthError(err);
     }
-  }
+  };
 
   return (
     <AuthModal

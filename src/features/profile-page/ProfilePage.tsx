@@ -52,14 +52,24 @@ const BREADCRUMBS: (
 
 export default function ProfilePage() {
   const { username } = useParams();
-  const { profile } = useProfile(username);
+  const { profile, isLoading, error } = useProfile(username);
   const { user: loggedInUser } = useUser();
 
-  function isLoggedInUser(): boolean {
+  const isLoggedInUser = (): boolean => {
     return username === loggedInUser?.username;
+  };
+
+  if (isLoading) {
+    return <div>Loading profile…</div>;
   }
 
-  if (!profile.username) return <div>User not found.</div>;
+  if (error) {
+    return <div>Could not load profile.</div>;
+  }
+
+  if (!profile) {
+    return <div>User not found.</div>;
+  }
 
   return (
     <>
@@ -95,25 +105,23 @@ export default function ProfilePage() {
         </div>
       </Banner>
       <MainLayout>
-        {!!profile.username && (
-          <ArticlesProvider feedControlsDefaults={FEED_CONTROLS_DEFAULTS}>
-            <BodyLayout>
-              <SidebarLayout>
-                <FeedControls tagsTitle="Show articles about">
-                  <div>
-                    <p className={styles.feedTypeTitle}>
-                      {isLoggedInUser() ? 'Show my' : "Show this user's"}
-                    </p>
-                    <FeedTypeOptions
-                      options={PROFILE_FEED_OPTIONS}
-                    ></FeedTypeOptions>
-                  </div>
-                </FeedControls>
-              </SidebarLayout>
-              <Feed options={PROFILE_FEED_OPTIONS}></Feed>
-            </BodyLayout>
-          </ArticlesProvider>
-        )}
+        <ArticlesProvider feedControlsDefaults={FEED_CONTROLS_DEFAULTS}>
+          <BodyLayout>
+            <SidebarLayout>
+              <FeedControls tagsTitle="Show articles about">
+                <div>
+                  <p className={styles.feedTypeTitle}>
+                    {isLoggedInUser() ? 'Show my' : "Show this user's"}
+                  </p>
+                  <FeedTypeOptions
+                    options={PROFILE_FEED_OPTIONS}
+                  ></FeedTypeOptions>
+                </div>
+              </FeedControls>
+            </SidebarLayout>
+            <Feed options={PROFILE_FEED_OPTIONS}></Feed>
+          </BodyLayout>
+        </ArticlesProvider>
       </MainLayout>
     </>
   );

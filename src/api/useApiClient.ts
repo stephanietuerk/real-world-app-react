@@ -2,6 +2,24 @@ import { useAuth } from './useAuth';
 
 export interface ApiCallState {
   isLoading: boolean;
+  error: unknown;
+}
+
+export class ApiError extends Error {
+  status: number;
+  statusText: string;
+  body?: unknown;
+  constructor(
+    message: string,
+    status: number,
+    statusText: string,
+    body?: unknown,
+  ) {
+    super(message);
+    this.status = status;
+    this.statusText = statusText;
+    this.body = body;
+  }
 }
 
 type AuthenticatedCall = <T>(

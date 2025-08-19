@@ -1,13 +1,12 @@
 import { FocusTrap } from 'focus-trap-react';
 import {
-  useEffect,
   useRef,
   useState,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
 } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import CloseIcon from '../../components/icons/CloseXButton';
 import styles from './AuthModal.module.scss';
 
@@ -21,10 +20,7 @@ interface AuthModalProps {
     closeModal: () => void,
     handleAuthError: (err: unknown) => void,
   ) => Promise<void>;
-  handleInput: (
-    form: HTMLFormElement,
-    setError: Dispatch<SetStateAction<string | null>>,
-  ) => void;
+  handleInput: (setError: Dispatch<SetStateAction<string | null>>) => void;
   children: ReactNode;
 }
 
@@ -39,24 +35,25 @@ export default function AuthModal({
 }: AuthModalProps) {
   const [error, setError] = useState<string | null>(null);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  function closeModal(): void {
+  const closeModal = (): void => {
     const background = location.state?.backgroundLocation;
     navigate(background || '/', { replace: true });
-  }
+  };
 
-  function handleInputLocal(): void {
+  const handleInputLocal = (): void => {
     if (formRef.current) {
       setIsFormValid(formRef.current.checkValidity());
-      handleInput(formRef.current, setError);
+      handleInput(setError);
     }
-  }
+  };
 
-  function handleAuthError(err: unknown): void {
+  const handleAuthError = (err: unknown): void => {
     if (err instanceof Error && 'code' in err) {
       if (err.code === 422) {
         setError('Invalid email or password.');
@@ -68,20 +65,21 @@ export default function AuthModal({
     } else {
       setError('Login failed. Please try again.');
     }
-  }
+  };
 
-  async function handleSubmitLocal(
-    event: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    event.preventDefault();
+  const handleSubmitLocal = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
+    e.preventDefault();
     setError(null);
-    const formData = new FormData(event.currentTarget);
-    handleSubmit(formData, closeModal, handleAuthError);
-  }
-
-  useEffect(() => {
-    console.log('formRef:', formRef);
-  }, [formRef]);
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData(e.currentTarget);
+      await handleSubmit(formData, closeModal, handleAuthError);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className={styles.overlay}>
@@ -116,7 +114,11 @@ export default function AuthModal({
           <h2 className={styles.signIn}>{title}</h2>
           <Link
             to={otherAuthRoute}
-            state={{ backgroundLocation: location.state.backgroundLocation }}
+            state={
+              location.state?.backgroundLocation
+                ? { backgroundLocation: location.state.backgroundLocation }
+                : undefined
+            }
           >
             {otherAuthLabel}
           </Link>
@@ -130,8 +132,11 @@ export default function AuthModal({
             noValidate
           >
             {children}
-            <button className={styles.submitButton} disabled={!isFormValid}>
-              {submitLabel}
+            <button
+              className={styles.submitButton}
+              disabled={!isFormValid || isSubmitting}
+            >
+              {isSubmitting ? 'Submitting…' : submitLabel}
             </button>
           </form>
         </div>

@@ -21,11 +21,9 @@ export async function login(
   });
 
   if (!res.ok) {
-    handleErrorResponse(res);
+    await handleErrorResponse(res);
   }
-
-  const data = await res.json();
-  return data;
+  return res.json() as Promise<{ user: User }>;
 }
 
 export async function register(
@@ -42,11 +40,9 @@ export async function register(
   });
 
   if (!res.ok) {
-    handleErrorResponse(res);
+    await handleErrorResponse(res);
   }
-
-  const data = await res.json();
-  return data;
+  return res.json() as Promise<{ user: User }>;
 }
 
 function handleErrorResponse(res: Response): Promise<never> {

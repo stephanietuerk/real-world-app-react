@@ -10,26 +10,27 @@ export interface Profile {
 }
 
 interface ProfileState extends ApiCallState {
-  profile: Profile;
+  profile: Profile | null;
 }
 
-export function useProfile(user: string | undefined): ProfileState {
+export function useProfile(username: string | undefined): ProfileState {
   const { callApiWithAuth } = useApiClient();
-  const [profile, setProfile] = useState<Profile>({} as Profile);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<unknown>(null);
 
   const fetchProfile = async () => {
-    if (!user) return;
+    if (!username) return;
 
     setIsLoading(true);
-    const url = API_ROOT + 'profiles/' + user;
+    const url = API_ROOT + 'profiles/' + username;
 
     try {
       const data = await callApiWithAuth<{ profile: Profile }>(url);
       setProfile(data.profile);
     } catch (error) {
-      console.log('Error in useProfile:', error);
-      setProfile({} as Profile);
+      setError(error);
+      setProfile(null);
     } finally {
       setIsLoading(false);
     }
@@ -37,7 +38,7 @@ export function useProfile(user: string | undefined): ProfileState {
 
   useEffect(() => {
     fetchProfile();
-  }, [user]);
+  }, [username]);
 
-  return { profile, isLoading };
+  return { profile, isLoading, error };
 }

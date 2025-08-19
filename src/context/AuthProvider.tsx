@@ -9,33 +9,27 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
 );
 
+function localStorageHasToken(): boolean {
+  return !!localStorage.getItem('token');
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [hasToken, setHasToken] = useState(false);
-
-  useEffect(() => {
-    setHasToken(!!localStorage.getItem('token'));
-
-    const handler = () => setHasToken(!!localStorage.getItem('token'));
-    window.addEventListener('storage', handler);
-    return () => window.removeEventListener('storage', handler);
-  }, []);
+  const [hasToken, setHasToken] = useState(localStorageHasToken());
 
   const setToken = (token: string | null) => {
-    console.log('setToken called with:', token);
-    console.log('Type of token:', typeof token);
     if (token) {
-      console.log('About to save token to localStorage');
       localStorage.setItem('token', token);
-      console.log(
-        'Token saved. Checking localStorage:',
-        localStorage.getItem('token'),
-      );
     } else {
       localStorage.removeItem('token');
     }
-    console.log('Setting hasToken to:', !!token);
     setHasToken(!!token);
   };
+
+  useEffect(() => {
+    const handler = () => setHasToken(localStorageHasToken());
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ hasToken, setToken }}>

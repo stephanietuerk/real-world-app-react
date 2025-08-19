@@ -6,29 +6,18 @@ import styles from './ImplementedModal.module.scss';
 
 export default function RegisterModal() {
   const { setToken } = useAuth();
-  function handleInput(
-    form: HTMLFormElement,
-    setError: React.Dispatch<React.SetStateAction<string | null>>,
-  ) {
-    const username = form.elements.namedItem(
-      'username',
-    ) as HTMLInputElement | null;
-    const email = form.elements.namedItem('email') as HTMLInputElement | null;
-    if (
-      username &&
-      email &&
-      username.value.trim() === '' &&
-      email.value.trim() === ''
-    ) {
-      setError((prev) => (prev ? null : prev));
-    }
-  }
 
-  async function handleSubmit(
+  const handleInput = (
+    setError: React.Dispatch<React.SetStateAction<string | null>>,
+  ) => {
+    setError(null);
+  };
+
+  const handleSubmit = async (
     formData: FormData,
     closeModal: () => void,
     handleAuthError: (err: unknown) => void,
-  ): Promise<void> {
+  ): Promise<void> => {
     const username = formData.get('username') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
@@ -40,7 +29,7 @@ export default function RegisterModal() {
     } catch (err) {
       handleAuthError(err);
     }
-  }
+  };
 
   return (
     <AuthModal
