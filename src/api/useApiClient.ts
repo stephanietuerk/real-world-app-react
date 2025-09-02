@@ -5,20 +5,23 @@ export interface ApiCallState {
   error: unknown;
 }
 
+type AppErrors = Record<string, string[] | string>;
+
 export class ApiError extends Error {
   status: number;
   statusText: string;
-  body?: unknown;
+  errors?: AppErrors;
+
   constructor(
     message: string,
     status: number,
     statusText: string,
-    body?: unknown,
+    errors?: AppErrors,
   ) {
     super(message);
     this.status = status;
     this.statusText = statusText;
-    this.body = body;
+    this.errors = errors;
   }
 }
 
@@ -32,7 +35,7 @@ async function fetchWithAuth<T>(
   options: RequestInit = {},
 ): Promise<T> {
   const token = localStorage.getItem('token');
-  console.log('token:', token);
+
   const headers = {
     ...(options.headers || {}),
     ...(token ? { Authorization: `Token ${token}` } : {}),

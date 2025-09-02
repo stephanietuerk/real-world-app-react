@@ -34,9 +34,8 @@ export default function ArticlePage() {
   const { user: loggedInUser } = useUser();
   const { profile: authorProfile } = useProfile(article?.author?.username);
 
-  console.log('article', article);
-
   if (!slug || !article.body) return null;
+  console.log(loggedInUser);
   return (
     <ErrorBoundary
       fallback={<p>Oops, error</p>}
@@ -87,17 +86,19 @@ export default function ArticlePage() {
               </p>
               <p>{formatDate(article.updatedAt || article.createdAt)}</p>
             </div>
-            <div>
-              <FavoriteButton
-                favorited={article.favorited}
-                count={article.favoritesCount}
-                slug={article.slug}
-                className={styles.favoriteButton}
-                displayIcon={false}
-                displayText={true}
-                syncWithApi={syncApi}
-              ></FavoriteButton>
-            </div>
+            {loggedInUser && (
+              <div>
+                <FavoriteButton
+                  favorited={article.favorited}
+                  count={article.favoritesCount}
+                  slug={article.slug}
+                  className={styles.favoriteButton}
+                  displayIcon={false}
+                  displayText={true}
+                  syncWithApi={syncApi}
+                ></FavoriteButton>
+              </div>
+            )}
           </SidebarLayout>
         </BodyLayout>
       </MainLayout>
