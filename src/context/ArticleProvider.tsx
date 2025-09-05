@@ -40,7 +40,6 @@ export function ArticleProvider({ slug, children }: ArticleProviderProps) {
 
     try {
       const data = await callApiWithAuth<{ article: Article }>(url);
-      console.log(data);
       const article = getTypedArticle(data.article);
 
       const body = await unified()

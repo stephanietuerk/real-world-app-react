@@ -48,7 +48,7 @@
   p {
     @include body-small;
     margin: grid(4) 0;
-    line-height: 1.6rem;
+    line-height: 1.6;
   }
 
   ul,
@@ -58,7 +58,7 @@
   }
   li + li {
     margin-top: grid(1);
-    line-height: 1.6rem;
+    line-height: 1.6;
   }
 
   // Links

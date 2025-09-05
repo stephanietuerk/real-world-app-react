@@ -35,7 +35,7 @@ export default function ArticlePage() {
   const { profile: authorProfile } = useProfile(article?.author?.username);
 
   if (!slug || !article.body) return null;
-  console.log(loggedInUser);
+
   return (
     <ErrorBoundary
       fallback={<p>Oops, error</p>}
