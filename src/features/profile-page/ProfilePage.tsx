@@ -41,7 +41,7 @@ const FEED_CONTROLS_DEFAULTS: FeedSelections = {
 };
 
 const BREADCRUMBS: (
-  username: string,
+  username?: string,
 ) => { display: string; route: string }[] = (username) => [
   { display: 'Home', route: ROUTE.home },
   {
@@ -52,16 +52,16 @@ const BREADCRUMBS: (
 
 export default function ProfilePage() {
   const { username } = useParams();
-  const { profile, isLoading, error } = useProfile(username);
+  const { profile, error } = useProfile(username);
   const { user: loggedInUser } = useUser();
 
   const isLoggedInUser = (): boolean => {
     return username === loggedInUser?.username;
   };
 
-  if (isLoading) {
-    return <div>Loading profile…</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading profile…</div>;
+  // }
 
   if (error) {
     return <div>Could not load profile.</div>;
@@ -78,30 +78,32 @@ export default function ProfilePage() {
           <div className={styles.breadcrumbs}>
             {!isLoggedInUser() && (
               <Breadcrumbs
-                segments={BREADCRUMBS(profile.username)}
+                segments={BREADCRUMBS(profile?.username)}
               ></Breadcrumbs>
             )}
           </div>
-          <div className={styles.bannerUserProfile}>
-            <div className={styles.bannerUserContainer}>
-              <div className={styles.userNameContainer}>
-                <Avatar
-                  imgClass={styles.avatar}
-                  src={profile.image}
-                  alt={`avatar for ${profile.username}`}
-                  size={40}
-                ></Avatar>
-                <p className={styles.bannerUserName}>{profile.username}</p>
+          {profile && (
+            <div className={styles.bannerUserProfile}>
+              <div className={styles.bannerUserContainer}>
+                <div className={styles.userNameContainer}>
+                  <Avatar
+                    imgClass={styles.avatar}
+                    src={profile.image}
+                    alt={`avatar for ${profile.username}`}
+                    size={40}
+                  ></Avatar>
+                  <p className={styles.bannerUserName}>{profile.username}</p>
+                </div>
+                <p className={styles.bannerUserBio}>{profile.bio}</p>
               </div>
-              <p className={styles.bannerUserBio}>{profile.bio}</p>
+              {profile.username !== loggedInUser?.username && (
+                <FollowButton
+                  profile={profile}
+                  className={styles.followButton}
+                ></FollowButton>
+              )}
             </div>
-            {profile.username !== loggedInUser?.username && (
-              <FollowButton
-                profile={profile}
-                className={styles.followButton}
-              ></FollowButton>
-            )}
-          </div>
+          )}
         </div>
       </Banner>
       <MainLayout>

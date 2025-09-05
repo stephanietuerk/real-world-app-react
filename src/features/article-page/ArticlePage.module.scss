@@ -90,6 +90,7 @@ $sidebar-gap: grid(6);
 
 .articleBody {
   @include markdown-content;
+  max-width: 800px;
 
   :first-child {
     margin-top: 0;
